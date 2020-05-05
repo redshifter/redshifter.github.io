@@ -1,5 +1,8 @@
 # Recommended Starting Rotation
 
+### MAP PACKS
+[Suggested Rotation]
+
 ### MAINLY OUTDOORS MAPS
 - Delerium PE
 - Frozen Shadows
@@ -14,11 +17,12 @@
 
 ### MAINLY INDOORS MAPS (use these sparingly)
 - Beneath the Hill
+- Icebound
 - Solace
 - Ultima Thule
 
 # Pond Siege - General Rules
-- 20 minute first round
+- 20 minute rounds
 - Offensive Base equipment is generally protected by script so it can't be blown up
 - Defense is not allowed to directly attack the Offensive Base
 - Defense is not allowed to steal enemy vehicles for their own use
@@ -76,7 +80,7 @@
 - This map is mostly outdoors.
 
 ### Gauntlet (Dynamix map)
-- The standard Gauntlet with the backdoor intact.
+- The standard Gauntlet with a backdoor.
 
 ### Geronimo
 - A map where you drop into a base. It's kinda spammy and can be hard to break in.
