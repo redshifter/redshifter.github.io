@@ -40,6 +40,7 @@
 
 ### Bridge Too Far (Dynamix Final Pack)
 - No. Just no.
+- This map was not in rotation, included for posterity.
 
 ### Caldera (Dynamix map)
 - This map was not in active rotation because it was way too defensive and easy for the defense to attack the offense.
@@ -68,10 +69,7 @@
 - Would probably play well once people realize the generator is there.
 - Max 16 players.
 
-### Devil's Elbow (Dynamix Final Pack)
-- This level isn't cool enough to warrant use of a map pack.
-
-### Empire-Pond Edition-
+### Empire -Pond Edition-
 - This map is Trident-style. One of the generators is in a gigantic air base that you basically need vehicles to attack.
 
 ### Frozen Shadows
@@ -89,6 +87,12 @@
 ### Icebound (Dynamix map)
 - This map has generators in one base and the switch in the other base.
 - It's hard to defend, but the offense needs to split into two teams to get both objectives at the same time.
+
+### Isle of Man -Pond Edition- (Dynamix Final Pack)
+- The map was updated to keep you from shooting through windows to blow up generators.
+- Nobody really likes this level.
+- Imagine Respite but everything is super close together and you need to take a vehicle 1000m to do anything. It's disappointing.
+- This map was not in rotation, included for posterity.
 
 ### King's Run
 - This is the CTF map. Someone runs the flag at the beginning and then it eventually becomes an exercise in breaking a flag standoff.
@@ -122,15 +126,17 @@
 - An indoor map in the vein of Ultima Thule.
 - You need to hit the Forcefield Generator to hit a couple gens but not all of them.
 
-### Trident-League Edition- (Dynamix Final Pack)
+### Trident -League Edition- (Dynamix Final Pack)
 - Inventory Stations were added for the offense so they don't rely on the MPBs. Not sure if anything else was changed about this map.
 - A mostly outdoors map where you can't repair generators and you have to shoot into holes.
 - Introduced the "Heavy on Generator" position to Siege.
 - Introduced forward bases that you can repair to spawn there.
-- I worry that it'll be too hard to get the last generator if it's thrown into play. 
+- I worry that it'll be too hard to get the last generator if it's thrown into play.
+- This map was not in rotation only because it required DFP. Included for posterity.
 
 ### Trojan Horse
-- A Trident-style map where you take down forcefields so you can drive an MPB into the enemy base. It's stupid but hilarious.
+- A Trident-style map where you take down forcefields so you can drive an MPB into the enemy base and make everything explode.
+- It's stupid but hilarious.
 
 ### Ultima Thule (Dynamix map)
 - Needs no introduction.
