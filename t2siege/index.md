@@ -4,6 +4,7 @@
 [starter siege pack](2020_siege_whatever.zip)
 
 ### MAINLY OUTDOORS MAPS
+- Alcatraz PE
 - Delerium PE
 - Frozen Shadows
 - Gauntlet (you could always remake it and put an FF on the backdoor)
