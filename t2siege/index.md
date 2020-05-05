@@ -4,7 +4,6 @@
 [starter siege pack](2020_siege_whatever.zip)
 
 ### MAINLY OUTDOORS MAPS
-- Alcatraz PE
 - Delerium PE
 - Frozen Shadows
 - Gauntlet (you could always remake it and put an FF on the backdoor)
@@ -17,6 +16,7 @@
 - Uphill Battle
 
 ### MAINLY INDOORS MAPS (use these sparingly)
+- Alcatraz PE
 - Beneath the Hill
 - Icebound
 - Solace
