@@ -1,7 +1,7 @@
 # Recommended Starting Rotation
 
 ### MAP PACKS
-[Suggested Rotation]
+[starter siege pack](2020_siege_whatever.zip)
 
 ### MAINLY OUTDOORS MAPS
 - Delerium PE
@@ -78,6 +78,8 @@
 
 ### Frozen Shadows
 - This map is mostly outdoors.
+- You blow up both main generators to attack the switch.
+- You can blow up FF generators in the bases to get at the main generators more easily.
 
 ### Gauntlet (Dynamix map)
 - The standard Gauntlet with a backdoor.
@@ -86,7 +88,7 @@
 - A map where you drop into a base. It's kinda spammy and can be hard to break in.
 
 ### Hey Now
-- This map is Trident-style. There's an anti-llama timer that gives the defenders time to reposition themselves.
+- This map is Trident-style. There's a timer that gives the defenders time to reposition themselves.
 
 ### Icebound (Dynamix map)
 - This map has generators in one base and the switch in the other base.
@@ -99,7 +101,7 @@
 - This map was not in rotation, included for posterity.
 
 ### King's Run
-- This is the CTF map. Someone runs the flag at the beginning and then it eventually becomes an exercise in breaking a flag standoff.
+- This is a map with a flag instead of a switch. Someone runs the flag at the beginning, then the offense blows up some gens, then the map eventually becomes an exercise in breaking a flag standoff.
 
 ### Masada (Dynamix map)
 - This map was not in active rotation because vehicles are absolutely mandatory, in addition to the problems that Caldera had.
@@ -114,7 +116,7 @@
 - This map needs no introduction. Two generators and a switch in different tiny structures.
 - The switch can be really hard to hit if someone defends it well.
 
-### Sandurki-Pond Edition-
+### Sandurki -Pond Edition-
 - Another map in the Gorgon base.
 
 ### Siege of Ymir Base
@@ -136,7 +138,6 @@
 - Introduced the "Heavy on Generator" position to Siege.
 - Introduced forward bases that you can repair to spawn there.
 - I worry that it'll be too hard to get the last generator if it's thrown into play.
-- This map was not in rotation only because it required DFP. Included for posterity.
 
 ### Trojan Horse
 - A Trident-style map where you take down forcefields so you can drive an MPB into the enemy base and make everything explode.
