@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>GNazo Viewer Bingo</title>
+<style>
+TD {
+	border:1px #000000 solid;
+	width:64px;
+	height:64px;
+	text-align:center;
+	font-size:20px;
+	background-color: black;
+	color: white;
+}
+</style>
+</head>
+<body>
+<!-- ru ru ru ru ru i like pantsu -->
+<div id="obj">
+</div>
+<script>
+// generate random list
+var list = [];
+for( var x = 0; x < 5; x++ ) {
+	mini = [];
+	for( var y = 0; y < 5; y++ ) {
+		mini[y] = Math.floor(Math.random() * 44) + (x * 44);
+		for ( var z = 0; z < y; z++ ) {
+			if( mini[z] == mini[y] ) {
+				y--;
+				continue;
+			}
+		}
+	}
+	for(var y = 0; y < 5; y++ ) {
+		list[x + (y * 5)] = mini[y];
+	}
+}
+
+// build the table
+var body = "<TABLE>";
+var i = 0;
+for( var y = 0; y < 5; y++ ) {
+	body += "<TR>"
+	for( var x = 0; x < 5; x++ ) {
+		body += "<TD id='cell" + i + "' onclick='highlight(this);'>";
+		body += list[i++];
+		body += "</TD>";
+	}
+	body += "</TR>";
+}
+body += "</TABLE>";
+document.getElementById("obj").innerHTML = body;
+
+function highlight(e) {
+	var c = e.style.backgroundColor;
+	if( c == "" ) {
+		e.style.backgroundColor = "green";
+	}
+	else {
+		e.style.backgroundColor = "";
+	}
+}
+</script>
+
+</body>
+</html>
