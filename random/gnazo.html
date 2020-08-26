@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>GNazo Viewer Bingo</title>
+<title>Gnazo Viewer Bingo</title>
 <style>
 TD {
 	border:1px #000000 solid;
@@ -12,49 +12,59 @@ TD {
 	color: white;
 }
 </style>
+
+<meta property="og:description" content="Gensokyo no Nazo Viewer Bingo" />
+
 </head>
 <body>
 <!-- ru ru ru ru ru i like pantsu -->
 <div id="obj">
+	Oops, you turned off JavaScript<noscript> (or NoScript is getting in the way)</noscript>.
+	Challenge again. 
 </div>
 <script>
-// generate random list
-var list = [];
-for( var x = 0; x < 5; x++ ) {
-	mini = [];
-	for( var y = 0; y < 5; y++ ) {
-		mini[y] = Math.floor(Math.random() * 44) + (x * 44) + 1;
-		if( mini[y] == 1 ) {
-			y--;
-			continue;
-		}
-		
-		for ( var z = 0; z < y; z++ ) {
-			if( mini[z] == mini[y] ) {
+try {
+	// generate random list
+	var list = [];
+	for( var x = 0; x < 5; x++ ) {
+		mini = [];
+		for( var y = 0; y < 5; y++ ) {
+			mini[y] = Math.floor(Math.random() * 44) + (x * 44) + 1;
+			if( mini[y] == 1 ) {
 				y--;
-				break;
+				continue;
+			}
+			
+			for ( var z = 0; z < y; z++ ) {
+				if( mini[z] == mini[y] ) {
+					y--;
+					break;
+				}
 			}
 		}
+		for(var y = 0; y < 5; y++ ) {
+			list[x + (y * 5)] = mini[y];
+		}
 	}
-	for(var y = 0; y < 5; y++ ) {
-		list[x + (y * 5)] = mini[y];
+	
+	// build the table
+	var body = "<TABLE>";
+	var i = 0;
+	for( var y = 0; y < 5; y++ ) {
+		body += "<TR>"
+		for( var x = 0; x < 5; x++ ) {
+			body += "<TD id='cell" + i + "' onclick='highlight(this);'>";
+			body += list[i++];
+			body += "</TD>";
+		}
+		body += "</TR>";
 	}
+	body += "</TABLE>";
+	document.getElementById("obj").innerHTML = body;
 }
-
-// build the table
-var body = "<TABLE>";
-var i = 0;
-for( var y = 0; y < 5; y++ ) {
-	body += "<TR>"
-	for( var x = 0; x < 5; x++ ) {
-		body += "<TD id='cell" + i + "' onclick='highlight(this);'>";
-		body += list[i++];
-		body += "</TD>";
-	}
-	body += "</TR>";
+catch( e ) {
+	document.getElementById("obj").innerHTML = "Oops, I bwoke it.";
 }
-body += "</TABLE>";
-document.getElementById("obj").innerHTML = body;
 
 // i'm a goddamn hack
 function highlight(e) {
