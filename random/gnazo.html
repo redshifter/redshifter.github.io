@@ -1,6 +1,9 @@
 <html>
 <head>
-<title>Gnazo Viewer Bingo</title>
+<title>Gnazo Viewer Bingo v2</title>
+<!-- VERSION HISTORY -->
+<!-- v2 (2023-06-16) - removed 42 from the list because nobody would ever go there willingly -->
+
 <style>
 TD {
 	border:1px #000000 solid;
@@ -12,8 +15,6 @@ TD {
 	color: white;
 }
 </style>
-
-
 
 <meta property="og:title" content="Gnazo Viewer Bingo" />
 <meta property="og:type" content="website" />
@@ -34,7 +35,7 @@ try {
 		mini = [];
 		for( var y = 0; y < 5; y++ ) {
 			mini[y] = Math.floor(Math.random() * 44) + (x * 44) + 1;
-			if( mini[y] == 1 ) {
+			if( mini[y] == 1 || mini[y] == 42 ) {
 				y--;
 				continue;
 			}
