@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Lights. Camera. Pants.</title>
+<!-- VERSION HISTORY -->
+<!-- v1 (2024-12-18) - merry christmas asshole -->
+
+<style>
+TD {
+	border:1px #000000 solid;
+	width:64px;
+	height:64px;
+	text-align:center;
+	font-size:20px;
+	background-color: black;
+	color: white;
+}
+</style>
+
+<meta property="og:title" content="Lights. Camera. Pants" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Stupid Randomizer for Lights emotes" />
+
+</head>
+<body>
+<!-- ru ru ru ru ru i like pantsu -->
+<div id="obj">
+	Oops, you turned off JavaScript<noscript> (or NoScript is getting in the way)</noscript>.
+	Challenge again. 
+</div>
+<script>
+try {
+	// generate emoji
+	var val = "";
+	for( var x = 0; x < 20; x++ ) {
+		switch( Math.floor(Math.random() * 5) ) {
+		case 0: // reduced weight for blink
+			val += "LightsBlink"; break;
+		case 1:
+		case 2:
+			val += "LightsTwinkle"; break;
+		case 3:
+		case 4:
+			val += "LightsSwirl"; break;
+		}
+		if( Math.random() > 0.5 ) val += " ffzX";
+		if( Math.random() > 0.5 ) val += " ffzY";
+		
+		val += " ";
+	}
+	
+	// write it out
+	document.getElementById("obj").innerHTML =
+		"<p>Happy Holights</p><textarea style='width:600px; height:400px;'>" + val + "</textarea>";
+}
+catch( e ) {
+	document.getElementById("obj").innerHTML = "Oops, I bwoke it.";
+}
+</script>
+
+</body>
+</html>
