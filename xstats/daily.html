@@ -84,7 +84,9 @@ TEXTAREA {
 		<p><a href="streak.html">Winning Streak!</a></p>
 	</div>
 </div>
+<script type="text/javascript" src="rng.js"></script>
 <script type="text/javascript" src="dat.js"></script>
+<script type="text/javascript" src="override.js"></script>
 <script>
 	document.getElementById("noscript").style.display = "none"
 	document.getElementById("error").style.display = ""
@@ -114,6 +116,9 @@ TEXTAREA {
 			validation.innerHTML = "Please type a number. Current day is " + currentDay + ".";
 		}
 		else {
+			if( game <= 0 ) {
+				validation.innerHTML = "Negative/zero games will be in flux. They may be different next time you see them.";
+			}
 			generateGame(game);
 		}
 	}
@@ -175,8 +180,15 @@ TEXTAREA {
 			
 			// start pulling things
 			//var gen = sampleData();
-			var gen = generateData();
-			matches = sortData(gen)
+			if( override[number] == null ) {
+				var gen = generateData();
+				matches = sortData(gen)
+			}
+			else {
+				for( var i = 0; i < 6; i++ ) {
+					matches[i] = override[number][i]
+				}
+			}
 			
 			// start the game
 			document.getElementById("game").style.display = ""
@@ -279,18 +291,6 @@ TEXTAREA {
 		document.getElementById("endedGame").style.display = ""
 	}
 	
-	var rand = 0.0;
-	function seedRandom(seed) {
-		rand = +seed + 42069.0
-		if( rand == 0 ) rand = 1 // ????
-		for( var i = 0; i < 12; i++ ) random() // seed it a few times
-	}
-	function random() {
-		var val = (Math.sin(rand) + 1.0) / 2.0;
-		rand = (rand * 16807) % 2146483647;
-		return val
-	}
-
 	function arrowed(msg) {
 		document.getElementById("game").style.display = "none"
 		document.getElementById("error").style.display = ""
@@ -332,52 +332,6 @@ TEXTAREA {
 		return gen
 	}
 	
-	function sampleData() {
-		// TODO make sure there's no ties in the real method
-		// also make sure none of the samples match ABS
-		var gen = []
-		gen[0] = {
-			"ch1":"Fall 2018 Alucard",
-			"ch2":"Summer 2005 CATS",
-			"x1":31.27,
-			"x2":17.63,
-			"win":13.64
-		}
-		gen[1] = {
-			"ch1":"Summer 2004 Vivi Ornitier",
-			"ch2":"Fall 2018 Luigi",
-			"x1":25.23,
-			"x2":27.77,
-			"win":-2.54
-		}
-		gen[2] = {
-			"ch1":"Summer 2013 Raz",
-			"ch2":"Summer 2013 Squirtle",
-			"x1":8.03,
-			"x2":25.07,
-			"win":-17.04
-		}
-		gen[3] = {
-			"ch1":"Summer 2002 Servbot",
-			"ch2":"Spring 2005 Ghaleon",
-			"x1":19.40,
-			"x2":15.07,
-			"win":4.33
-		}
-		gen[4] = {
-			"ch1":"Winter 2010 Fox McCloud",
-			"ch2":"Spring 2005 Giygas",
-			"x1":29.36,
-			"x2":12.57,
-			"win":16.79
-		}
-		gen[5] = {
-			"ch1":"Winter 2010 Commander Shepard",
-			"ch2":"Summer 2013 Kain",
-			"win":21.63
-		}
-		return gen;
-	}
 	function sortData(gen) {
 		var sortGen = [0,0,0,0,0,0]
 		
