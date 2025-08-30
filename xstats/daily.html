@@ -46,7 +46,7 @@ TEXTAREA {
 		<span id="topWarn"></span>
 		<input type="button" id="topOp" value="Summer 2002 Link" onclick="datTopOption()" class="butt" />
 		vs 
-		<input type="button" id="bottomOp"value="Summer 2004 Tanner" onclick="bottomOption()" class="butt" />
+		<input type="button" id="bottomOp" value="Summer 2004 Tanner" onclick="bottomOption()" class="butt" />
 		<span id="botWarn"></span>
 	</p>
 	
@@ -72,11 +72,12 @@ TEXTAREA {
 	<div>
 		<br/>
 		<br/>
-		<p>Play a different game?</p>
+		<p>Play a different day?</p>
 		<p>
 			<input type="input" id="arbitrary" style="width:60px" />
-			<input type="button" value="Play Game" onclick="generateGame(document.getElementById('arbitrary').value)" />
+			<input type="button" value="Play Game" onclick="tryGenerateGame()" />
 		</p>
+		<p id="invalidGame" class="finePrint"></p>
 	</div>
 	<div>
 		<p>Other Modes?</p>
@@ -97,6 +98,25 @@ TEXTAREA {
 	var match = 0
 	var matches = []
 	var correct = 0
+	
+	function tryGenerateGame() {
+		var validation = document.getElementById("invalidGame");
+		validation.innerHTML = ""
+		
+		var game = document.getElementById('arbitrary').value
+		var currentDay = getCurrentDay()
+		if( game > currentDay ) {
+			// what are you trying to pull
+			validation.innerHTML = "This day hasn't unlocked yet. Current day is " + currentDay + ".";
+		}
+		else if( isNaN(game) ) {
+			// i tore my [quad]
+			validation.innerHTML = "Please type a number. Current day is " + currentDay + ".";
+		}
+		else {
+			generateGame(game);
+		}
+	}
 	
 	function getCurrentDay() {
 		var startYear = 2025
