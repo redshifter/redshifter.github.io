@@ -1,33 +1,6 @@
 <html>
 <head>
 <title>Maintenance Shell</title>
-<!-- VERSION HISTORY -->
-
-<style>
-BODY {
-	font-size:20px;
-	background-color: black;
-	color: white;
-}
-
-.FINEPRINT {
-	font-size:10px;
-}
-
-TEXTAREA {
-	resize: none;
-}
-
-.BUTT {
-	font-size:24px
-}
-
-</style>
-
-<meta property="og:title" content="LOL X-Statsle" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content="The daily X-Stats game. Why though?" />
-
 </head>
 <body>
 <div id="noscript">
@@ -35,7 +8,18 @@ TEXTAREA {
 	<p>Challenge again.</p>
 </div>
 <div id="error"></div>
-<div id="results">za</div>
+<div id="results">
+	<strong><p>tl;dr YOU CAN SPOIL EVERYTHING FROM THIS PAGE</p></strong>
+	
+	This is a maintenance shell set up to replay days, to ensure results remain consistent when underlying logic changes, or if x-stats are added/removed/modified.
+	<br/>
+	In case you didn't notice, the entire thing is written in JS, with no server-side components to speak of.
+	<br/>
+	In layman's terms, it's easy to cheat, and you shouldn't be proud of doing so.
+	<br/>
+	If you're curious on the underlying logic, that's one thing. But try not to go ruining it for anyone else, okay?
+
+</div>
 <script>
 	document.getElementById("noscript").style.display = "none"
 	document.getElementById("error").style.display = ""
@@ -47,6 +31,7 @@ TEXTAREA {
 	document.getElementById("error").style.display = "none"
 
 	var fullResults = ""
+	var readable = false
 
 /*
 	var nextGame = 0
@@ -170,11 +155,10 @@ TEXTAREA {
 		return sortGen;
 	}
 
-	var readable = true
-	generateManyGames(1, 365);
-	//generateGame(6)
-	
+	/*
+		readable = false
+		generateManyGames(2, 7);
+	*/
 </script>
-
 </body>
 </html>
