@@ -131,13 +131,13 @@ TEXTAREA {
 		var a;
 		var b;
 		while( !valid ) {
-			a = charList[pointer]
-			b = charList[pointer + 1]
-			pointer += 2
-			if( b >= datmax ) {
+			if( pointer + 1 >= datmax ) {
 				endGame()
 				return
 			}
+			a = charList[pointer]
+			b = charList[pointer + 1]
+			pointer += 2
 			valid = (datx[a] != datx[b]);
 		}
 	
