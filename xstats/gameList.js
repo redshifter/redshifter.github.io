@@ -10,6 +10,11 @@ function runGameList(thisGame) {
 				? "<a href='streak.html'>Winning Streak!</a>"
 				: "Winning Streak!"
 			) +
+		"<br/>" +
+			(thisGame != "sicko"
+				? "<a href='sicko.html'>Sicko Mode</a>"
+				: "Sicko Mode"
+			) +
 		"</p>"
 	;
 	document.getElementById("gameList").innerHTML = text
