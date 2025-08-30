@@ -1,0 +1,239 @@
+<html>
+<head>
+<title>LOL X-Stats Winning Streak!</title>
+<!-- VERSION HISTORY -->
+
+<style>
+BODY {
+	text-align:center;
+	font-size:20px;
+	background-color: black;
+	color: white;
+}
+
+.FINEPRINT {
+	font-size:10px;
+}
+
+TEXTAREA {
+	resize: none;
+}
+
+.BUTT {
+	font-size:24px
+}
+
+</style>
+
+<meta property="og:title" content="LOL X-Stats Winning Streak!" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="How high can you go?" />
+
+</head>
+<body>
+<div id="noscript">
+	<p>Oops, you turned off JavaScript<noscript> (or NoScript is getting in the way)</noscript>.</p>
+	<p>Challenge again.</p>
+</div>
+<div id="error" style="display:none">
+</div>
+<div id="game" style="display:none">
+	<p>LOL X-STATS WINNING STREAK!</p>
+	<p>
+		<span id="results"></span>
+		<br/>
+		<span id="streak"></span>
+	</p>
+	<p>Directions: Simply pick the character who would get more votes on an outdated Internet website.</p>
+	<p class="finePrint">I used the unadjusted stats because I have no idea where to find the good ones. Eh I'm sure it'll be fine.</p>
+	<p id="activeGame">
+		<input type="button" id="topOp" value="Summer 2002 Link" onclick="datTopOption()" class="butt" />
+		vs 
+		<input type="button" id="bottomOp"value="Summer 2004 Tanner" onclick="bottomOption()" class="butt" />
+	</p>
+	<div id="endedGame">
+		<p>IT'S OVER!</p>
+		<p id="finalResult"></p>
+		<p><input type="button" value="Try Again?" onclick="startStreak()" class="butt" />
+	</div>
+	<div>
+		<p>Other Modes?</p>
+		<p><a href="daily.html">Daily Game</a></p>
+	</div>
+</div>
+<script type="text/javascript" src="dat.js"></script>
+<script>
+	document.getElementById("noscript").style.display = "none"
+	document.getElementById("error").style.display = ""
+	document.getElementById("error").innerHTML = "argh i tore my JS compiler"
+</script>
+<script>
+	document.getElementById("error").style.display = "none"
+	var text = ["🟩","🟥","⬜"]
+	
+	var charList = []
+	var pointer = 0
+	var match = 0
+	var correct = 0
+	
+	function startStreak() {
+		try {
+			charList = []
+			pointer = 0
+			match = null
+			correct = 0
+			
+			shuffle()
+			initMatch()
+			
+			document.getElementById("activeGame").style.display = ""
+			document.getElementById("endedGame").style.display = "none"
+			document.getElementById("results").innerHTML = text[2]
+			document.getElementById("streak").innerHTML = "How high can you go?"
+		}
+		catch( e ) {
+			arrowed(e.message)
+		}
+	}
+	
+	function shuffle() {
+		var used = []
+		for( var i = 0; i < datmax; i++ ) {
+			used[i] = false
+			charList[i] = -1
+		}
+		for( var slot = 0; slot < datmax; slot++ ) {
+			var roll = Math.floor(Math.random() * (datmax - slot))
+			while( charList[slot] == -1 ) {
+				for( var i = 0; i < datmax; i++ ) {
+					if( !used[i] ) {
+						if( roll == 0 ) {
+							charList[slot] = i
+							used[i] = true
+							break
+						}
+						else {
+							roll--;
+						}
+					}
+				}
+			}
+			/*if( charList[slot] == -1 ) {
+				arrowed("shuffling algorithm at " + slot)
+			}*/
+		}
+	}
+
+	function initMatch() {
+		match = null
+		
+		var valid = false
+		var a;
+		var b;
+		while( !valid ) {
+			a = charList[pointer]
+			b = charList[pointer + 1]
+			pointer += 2
+			if( b >= datmax ) {
+				endGame()
+				return
+			}
+			valid = (datx[a] != datx[b]);
+		}
+	
+		match = {
+			"ch1":datnm[a],
+			"ch2":datnm[b],
+			"x1":datx[a],
+			"x2":datx[b],
+			"win":(datx[a] - datx[b])
+		};
+	
+		var button = [
+			document.getElementById("topOp"),
+			document.getElementById("bottomOp")
+		]
+		var warning = [
+			document.getElementById("topWarn"),
+			document.getElementById("botWarn")
+		]
+		button[0].value = match.ch1
+		button[1].value = match.ch2
+		
+		for( var i = 0; i < 2; i++ ) {
+			button[i].style.backgroundColor = randomColor()
+		}
+	}
+	
+	function randomColor() {
+		var x = "#"
+		for( var i = 0; i < 3; i++ ) {
+			var a = Math.floor(Math.random() * 8) + 8
+			var b = Math.floor(Math.random() * 16)
+			x += a.toString(16) + b.toString(16)
+		}
+		return x
+	}
+	
+	function vote(option) {
+		try {
+			var choice = (option < 0)
+			var xstats = (match.win < 0)
+			
+			var resultBox = document.getElementById("results")
+			var streakBox = document.getElementById("streak")
+			
+			if( correct == 0 ) {
+				resultBox.innerHTML = ""
+			}
+			
+			if( choice == xstats ) {
+				correct++
+				resultBox.innerHTML += text[0]
+				streakBox.innerHTML = correct + " x-stats streak!"
+				initMatch()
+			}
+			else {
+				resultBox.innerHTML += text[1]
+				streakBox.innerHTML = correct + " x-stats streak"
+				endGame()
+			}
+		}
+		catch( e ) {
+			arrowed(e.message)
+		}
+	}
+	
+	function datTopOption() {
+		vote(1);
+	}
+	
+	function bottomOption() {
+		vote(-1);
+	}
+	
+	function endGame() {
+		document.getElementById("activeGame").style.display = "none"
+		document.getElementById("endedGame").style.display = ""
+		
+		var finalResult = document.getElementById("finalResult")
+		if( match == null ) {
+			finalResult.innerHTML = "You actually made it to the end?! Good work, Luster."
+		}
+		else {
+			finalResult.innerHTML = "You made the wrong choice on:<br/>" + match.ch1 + " (" + match.x1 + "%) <br/>" + match.ch2 + " (" + match.x2 + "%)"
+		}
+	}
+	
+	function arrowed(msg) {
+		document.getElementById("game").style.display = "none"
+		document.getElementById("error").style.display = ""
+		document.getElementById("error").innerHTML = "argh i tore my " + msg
+	}
+	
+	startStreak()
+	document.getElementById("game").style.display = ""
+</script>
+
+</body>
+</html>
