@@ -40,13 +40,15 @@
 		vs 
 		<input type="button" id="bottomOp"value="Summer 2004 Tanner" onclick="bottomOption()" class="butt" />
 	</p>
-	
-	<div>
-		<p>Other Modes?</p>
-		<p><a href="daily.html">Daily Game</a></p>
+	<div id="contestInfo">
+	</div>
+
+	<div id="gameList">
 	</div>
 </div>
 <script type="text/javascript" src="dat.js"></script>
+<script type="text/javascript" src="contestHistory.js"></script>
+<script type="text/javascript" src="gameList.js"></script>
 <script>
 	document.getElementById("noscript").style.display = "none"
 	document.getElementById("error").style.display = ""
@@ -153,6 +155,8 @@
 		for( var i = 0; i < 2; i++ ) {
 			button[i].style.backgroundColor = randomColor()
 		}
+
+		contestHistory(match.ch1, match.ch2)
 	}
 	
 	function randomColor() {
@@ -214,6 +218,7 @@
 	}
 	
 	function endGame() {
+		contestHistory()
 		document.getElementById("activeGame").style.display = "none"
 		document.getElementById("endedGame").style.display = ""
 		
@@ -236,6 +241,7 @@
 	
 	startStreak()
 	document.getElementById("game").style.display = ""
+	runGameList("streak");
 </script>
 
 </body>

@@ -28,26 +28,15 @@
 		<input type="button" id="bottomOp" value="Summer 2004 Tanner" onclick="bottomOption()" class="butt" />
 		<span id="botWarn"></span>
 	</p>
+	<div id="contestInfo">
+	</div>
 	
 	<div id="endedGame" style="display:none">
 		<p>You got <span id="correct"></span> of 6 right. <span id="funnySaying"></span></p>
 		<textarea id="shareable" readonly="true" cols="30" rows="4">#lolXStats #1\r\nLine 2</textarea>
 	</div>
-	<div style="display:none">
-		<p id="Summer2002">The Summer 2002 GameFAQs Contest, The Great GameFAQs Character Battle. Basic 1v1</p>
-		<p id="Summer2003">The Summer 2003 GameFAQs Contest, CBII. Basic 1v1</p>
-		<p id="Summer2004">The Summer 2004 GameFAQs Contest, CBIII. Basic 1v1</p>
-		<p id="Spring2005">The Spring 2005 GameFAQs Contest, Got Villains? Basic 1v1</p>
-		<p id="Summer2005">The Summer 2005 GameFAQs Contest, CBIV. Basic 1v1, Tournament of Champions</p>
-		<!--
-		<p id="Summer2006">The Summer 2006 GameFAQs Contest, CBV, Male and Female bracket. Basic 1v1, Battle Royale(?). Where are the x-stats for this?</p> 
-		<p id="Summer2007">The Summer 2006 GameFAQs Contest, CBVI. FATAL 4 WAY</p>
-		-->
-		<p id="Fall2008">The Fall 2008 GameFAQs Contest, CBVII. FATAL 4 WAY</p> <!-- we don't really want this one -->
-		<p id="Winter2010">The Winter 2010 GameFAQs Contest, CBVIII. Basic 1v1, 12 HOUR MATCHES</p>
-		<p id="Summer2013">The Summer 2013 GameFAQs Contest, CBIX. TRIPLE THREAT</p> <!-- do we really even want this one? -->
-		<p id="Summer2018">The Summer 2018 GameFAQs Contest, CBX. Basic 1v1, Double Battles</p>
-	</div>
+
+
 	<div>
 		<br/>
 		<br/>
@@ -58,14 +47,14 @@
 		</p>
 		<p id="invalidGame" class="finePrint"></p>
 	</div>
-	<div>
-		<p>Other Modes?</p>
-		<p><a href="streak.html">Winning Streak!</a></p>
+	<div id="gameList">
 	</div>
 </div>
 <script type="text/javascript" src="rng.js"></script>
 <script type="text/javascript" src="dat.js"></script>
 <script type="text/javascript" src="override.js"></script>
+<script type="text/javascript" src="contestHistory.js"></script>
+<script type="text/javascript" src="gameList.js"></script>
 <script>
 	document.getElementById("noscript").style.display = "none"
 	document.getElementById("error").style.display = ""
@@ -96,7 +85,7 @@
 		}
 		else {
 			if( game <= 0 ) {
-				validation.innerHTML = "Negative/zero games will be in flux. They may be different next time you see them.";
+				validation.innerHTML = "Negative/zero games are consistent if multiple people pick them at the same time, but will change as I make updates.";
 			}
 			generateGame(game);
 		}
@@ -202,6 +191,8 @@
 			}
 			*/
 		}
+		
+		contestHistory(matches[match].ch1, matches[match].ch2);
 	}
 	
 	function randomColor() {
@@ -252,6 +243,7 @@
 	}
 	
 	function endGame() {
+		contestHistory()
 		if( correct < 6 ) {
 			document.getElementById("funnySaying").innerHTML = "you tore your [quad]"
 		}
@@ -338,7 +330,7 @@
 	}
 
 	generateToday();
-	
+	runGameList("daily");
 </script>
 
 </body>
