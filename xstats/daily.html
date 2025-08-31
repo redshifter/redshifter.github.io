@@ -63,6 +63,7 @@
 	document.getElementById("error").style.display = "none"
 	var text = ["🟩","🟥","⬜"]
 	var answer = ["✔️", "❌"]
+	var emoji = "✘"
 
 	var gameNumber = 0
 	var match = 0
@@ -267,7 +268,7 @@
 		document.getElementById("correct").innerHTML = correct
 		
 		var shareable = document.getElementById("shareable");
-		shareable.value = "#lolXStats #" + gameNumber + "\n";
+		shareable.value = "#lolXStats #" + gameNumber + "\n" + emoji + " ";
 		for( var i = 0; i < 6; i++ ) {
 			shareable.value += document.getElementById("r" + i).innerHTML
 		}
