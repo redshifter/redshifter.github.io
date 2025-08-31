@@ -34,9 +34,8 @@
 	<div id="endedGame" style="display:none">
 		<p>You got <span id="correct"></span> of 6 right. <span id="funnySaying"></span></p>
 		<textarea id="shareable" readonly="true" cols="30" rows="4">#lolXStats #1\r\nLine 2</textarea>
+		<div id="xstatsResults"></div>
 	</div>
-
-
 	<div>
 		<br/>
 		<br/>
@@ -63,7 +62,8 @@
 <script>
 	document.getElementById("error").style.display = "none"
 	var text = ["🟩","🟥","⬜"]
-	
+	var answer = ["✔️", "❌"]
+
 	var gameNumber = 0
 	var match = 0
 	var matches = []
@@ -146,6 +146,8 @@
 				results.innerHTML += "<span id='r" + i + "'>" + text[2] + "</span> "
 			}
 			
+			document.getElementById("xstatsResults").innerHTML = ""
+			
 			// start pulling things
 			//var gen = sampleData();
 			if( override[number] == null ) {
@@ -212,14 +214,26 @@
 			
 			var resultBox = document.getElementById("r" + match)
 			
+			var box1 = ""
+			var box2 = ""
+			
 			if( choice == xstats ) {
+				if( choice ) box2 = answer[0]; else box1 = answer[0];
 				resultBox.innerHTML = text[0]
 				correct++
 			}
 			else {
+				if( choice ) box2 = answer[1]; else box1 = answer[1];
 				resultBox.innerHTML = text[1]
 			}
 			resultBox.innerHTML += " "
+			
+			document.getElementById("xstatsResults").innerHTML +=
+				"<p>" +
+					"<strong>Match " + (match + 1) + "</strong><br/>" +
+					box1 + matches[match].ch1 + " (" + matches[match].x1 + "%) <br/>" +
+					box2 + matches[match].ch2 + " (" + matches[match].x2 + "%)" +
+				"</p>"
 			
 			match++
 			if( match < 6 ) {
