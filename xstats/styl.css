@@ -5,6 +5,10 @@ BODY {
 	color: white;
 }
 
+.SMALLERPRINT {
+	font-size:13px;
+}
+
 .FINEPRINT {
 	font-size:10px;
 }

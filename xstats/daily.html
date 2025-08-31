@@ -54,6 +54,7 @@
 <script type="text/javascript" src="override.js"></script>
 <script type="text/javascript" src="contestHistory.js"></script>
 <script type="text/javascript" src="gameList.js"></script>
+<script type="text/javascript" src="utility.js"></script>
 <script>
 	document.getElementById("noscript").style.display = "none"
 	document.getElementById("error").style.display = ""
@@ -62,7 +63,7 @@
 <script>
 	document.getElementById("error").style.display = "none"
 	var text = ["🟩","🟥","⬜"]
-	var answer = ["✔️", "❌"]
+	//var answer = ["✔️", "❌"]
 	var emoji = "✘"
 
 	var gameNumber = 0
@@ -215,28 +216,32 @@
 			
 			var resultBox = document.getElementById("r" + match)
 			
-			var box1 = ""
-			var box2 = ""
+			//var box1 = ""
+			//var box2 = ""
 			
 			if( choice == xstats ) {
-				if( choice ) box2 = answer[0]; else box1 = answer[0];
+				//if( choice ) box2 = answer[0]; else box1 = answer[0];
 				resultBox.innerHTML = text[0]
 				correct++
 			}
 			else {
-				if( choice ) box2 = answer[1]; else box1 = answer[1];
+				//if( choice ) box2 = answer[1]; else box1 = answer[1];
 				resultBox.innerHTML = text[1]
 			}
 			resultBox.innerHTML += " "
-			
+
 			document.getElementById("xstatsResults").innerHTML +=
+				buildMatchResult(matches[match], (match + 1), choice, xstats)
+				/*
 				"<p>" +
 					"<strong>Match " + (match + 1) + "</strong><br/>" +
 					box1 + matches[match].ch1 + " (" + matches[match].x1 + "%) <br/>" +
 					box2 + matches[match].ch2 + " (" + matches[match].x2 + "%)" +
 				"</p>"
-			
+				*/
+
 			match++
+			
 			if( match < 6 ) {
 				initMatch(match)
 			}

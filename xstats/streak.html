@@ -17,11 +17,19 @@
 <div id="error" style="display:none">
 </div>
 <div id="game" style="display:none">
-	<p>LOL X-STATS WINNING STREAK!</p>
+	<p id="modeTitle">LOL X-STATS WINNING STREAK!</p>
 	<p>Directions: Simply pick the character who would get more votes on an outdated Internet website.</p>
+	<p id="modeRule"></p>
 	<p class="finePrint">I used the unadjusted stats because I have no idea where to find the good ones. Eh I'm sure it'll be fine.</p>
-	
+
+		<!--
 	<p>
+		<span id="results" style="word-wrap: normal; width:200px"></span>
+		<br/>
+		<span id="streak"></span>
+	</p>
+	-->
+	<p style="width:570px;margin-left:auto;margin-right:auto">
 		<span id="results"></span>
 		<br/>
 		<span id="streak"></span>
@@ -32,9 +40,17 @@
 		<p id="finalResult"></p>
 		<p id="bestWin"></p>
 		
-		<p><input type="button" value="Try Again?" onclick="startStreak()" class="butt" />
+		<p>
+			<div id="gameResults" class="smallerprint">
+				eat pant
+			</div>
+			<br/>
+		</p>
+		
+		<p><input type="button" value="Try Again?" onclick="startStreak()" class="butt" /></p>
 	</div>
 	
+	<input type="button" id="invisibleAutoWinButton" value="cheat" onclick="vote(0)" class="butt" style="display:none" />
 	<p id="activeGame">
 		<input type="button" id="topOp" value="Summer 2002 Link" onclick="datTopOption()" class="butt" />
 		vs 
@@ -49,6 +65,7 @@
 <script type="text/javascript" src="dat.js"></script>
 <script type="text/javascript" src="contestHistory.js"></script>
 <script type="text/javascript" src="gameList.js"></script>
+<script type="text/javascript" src="utility.js"></script>
 <script>
 	document.getElementById("noscript").style.display = "none"
 	document.getElementById("error").style.display = ""
@@ -56,22 +73,43 @@
 </script>
 <script>
 	document.getElementById("error").style.display = "none"
+	var mode
 	var text = ["🟩","🟥","⬜"]
 	
 	var charList = []
 	var pointer = 0
 	var match = 0
+	var count = 0
 	var correct = 0
 	var bestWin = 50
+	var inPlay = 0
+	var resultsHTML = "" // we need to optimize this shit a lot harder
+	
+	function setMode() {
+		mode = new URLSearchParams(window.location.search).get("mode")
+		if( mode == "sicko" ) {
+			document.getElementById("modeRule").innerHTML = "<strong>Sicko Mode</strong>: Every character in this mode is from a three-way or four-way match!"
+			document.getElementById("modeTitle").innerHTML = "LOL X-STATS SICKO MODE!"
+		}
+		else {
+			document.getElementById("modeRule").style.display = ""
+			mode = "streak"
+		}
+	}
 	
 	function startStreak() {
 		try {
 			charList = []
 			pointer = 0
 			match = null
+			count = 0
 			correct = 0
 			bestWin = 50
+			inPlay = 0
+			resultsHTML = ""
+			
 			document.getElementById("bestWin").innerHTML = ""
+			document.getElementById("gameResults").innerHTML = ""
 			
 			shuffle()
 			initMatch()
@@ -85,7 +123,8 @@
 			arrowed(e.message)
 		}
 	}
-	
+
+/*	
 	function shuffle() {
 		var used = []
 		for( var i = 0; i < datmax; i++ ) {
@@ -110,13 +149,64 @@
 					}
 				}
 			}
-			/*if( charList[slot] == -1 ) {
-				arrowed("shuffling algorithm at " + slot)
-			}*/
+		}
+	}
+*/
+	function characterInMode(name) {
+		if( mode == "sicko" ) {
+			if(
+				 name.indexOf("Summer 2007") > -1 ||
+				 name.indexOf("Fall 2008") > -1 ||
+				 name.indexOf("Summer 2013") > -1
+			) {
+				return true
+			}
+			else {
+				return false
+			}
+		}
+		else {
+			// everyone is here!
+			return true;
+		}
+	}
+
+	function shuffle() {
+		inPlay = 0
+		var used = []
+		for( var i = 0; i < datmax; i++ ) {
+			charList[i] = -1
+			if( characterInMode(datnm[i]) ) {
+				inPlay++
+				used[i] = false
+			}
+			else {
+				used[i] = true
+			}
+		}
+		
+		// bad shuffling algorithm that is broken and it's just too much work to figure out where i went wrong
+		for( var slot = 0; slot < inPlay; slot++ ) {
+			var roll = Math.floor(Math.random() * (inPlay - slot))
+			while( charList[slot] == -1 ) {
+				for( var i = 0; i < datmax; i++ ) {
+					if( !used[i] ) {
+						if( roll == 0 ) {
+							charList[slot] = i
+							used[i] = true
+							break
+						}
+						else {
+							roll--;
+						}
+					}
+				}
+			}
 		}
 	}
 
 	function initMatch() {
+		count++
 		match = null
 		
 		var valid = false
@@ -174,16 +264,25 @@
 			var choice = (option < 0)
 			var xstats = (match.win < 0)
 			
+			if( option == 0 ) choice = xstats // cheat
+			
 			var resultBox = document.getElementById("results")
 			var streakBox = document.getElementById("streak")
 			
 			if( correct == 0 ) {
 				resultBox.innerHTML = ""
 			}
+
+			/*
+			document.getElementById("gameResults").innerHTML =
+				buildMatchResult(match, count, choice, xstats) +
+				document.getElementById("gameResults").innerHTML
+			*/
+			resultsHTML = buildMatchResult(match, count, choice, xstats) + resultsHTML;
 			
 			if( choice == xstats ) {
 				correct++
-				bestChoice()
+				bestChoice(choice, xstats)
 				resultBox.innerHTML += text[0]
 				streakBox.innerHTML = correct + " x-stats streak!"
 				initMatch()
@@ -191,7 +290,7 @@
 			else {
 				resultBox.innerHTML += text[1]
 				streakBox.innerHTML = correct + " x-stats streak"
-				endGame()
+				endGame(choice, xstats)
 			}
 		}
 		catch( e ) {
@@ -207,29 +306,31 @@
 		vote(-1);
 	}
 	
-	function bestChoice() {
+	function bestChoice(choice, xstats) {
 		if( Math.abs(match.win) < bestWin ) {
 			bestWin = Math.abs(match.win);
 			document.getElementById("bestWin").innerHTML = "Most Impressive Correct Choice:<br/>"
 				+ "<span class='fineprint'>aka \"why are these characters this close to each other?\"</span><br/>"
-				+ match.ch1 + " (" + match.x1 + "%) <br/>" 
-				+ match.ch2 + " (" + match.x2 + "%)"
+				+ buildMatchResult(match, 0, choice, xstats)
+//				+ match.ch1 + " (" + match.x1 + "%) <br/>" 
+//				+ match.ch2 + " (" + match.x2 + "%)"
 		}
 	}
 	
-	function endGame() {
+	function endGame(choice, xstats) {
 		contestHistory()
 		document.getElementById("activeGame").style.display = "none"
 		document.getElementById("endedGame").style.display = ""
+		
+		document.getElementById("gameResults").innerHTML = resultsHTML
 		
 		var finalResult = document.getElementById("finalResult")
 		if( match == null ) {
 			finalResult.innerHTML = "You actually made it to the end?! Good work, Luster."
 		}
 		else {
-			finalResult.innerHTML = "You made the wrong choice on:<br/>" 
-				+ match.ch1 + " (" + match.x1 + "%) <br/>" 
-				+ match.ch2 + " (" + match.x2 + "%)"
+			finalResult.innerHTML = "You made the wrong choice on:<br/>" +
+			buildMatchResult(match, 0, choice, xstats)
 		}
 	}
 	
@@ -239,9 +340,10 @@
 		document.getElementById("error").innerHTML = "argh i tore my " + msg
 	}
 	
+	setMode()
 	startStreak()
 	document.getElementById("game").style.display = ""
-	runGameList("streak");
+	runGameList(mode);
 </script>
 
 </body>

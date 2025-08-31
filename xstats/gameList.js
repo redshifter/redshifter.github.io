@@ -12,7 +12,7 @@ function runGameList(thisGame) {
 			) +
 		"<br/>" +
 			(thisGame != "sicko"
-				? "<a href='sicko.html'>Sicko Mode</a>"
+				? "<a href='streak.html?mode=sicko'>Sicko Mode</a>"
 				: "Sicko Mode"
 			) +
 		"</p>"
