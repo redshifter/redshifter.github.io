@@ -2,18 +2,25 @@ function buildMatchResult(match, count, choice, xstats) {
 	var answer = ["✔️", "❌"]
 	var box1 = ""
 	var box2 = ""
+	var oops = ""
 	
-	if( choice == xstats ) {
-		if( choice ) box2 = answer[0]; else box1 = answer[0];
-	}
-	else {
-		if( choice ) box2 = answer[1]; else box1 = answer[1];
+	if( xstats != null ) {
+		if( choice == null ) {
+			oops = answer[1] + match.choice + " (N/A)<br/>"
+		}
+		else if( choice == xstats ) {
+			if( choice ) box2 = answer[0]; else box1 = answer[0];
+		}
+		else {
+			if( choice ) box2 = answer[1]; else box1 = answer[1];
+		}
 	}
 	
 	var text = 
 			box1 + match.ch1 + " (" + match.x1 + "%) <br/>" +
 			box2 + match.ch2 + " (" + match.x2 + "%) <br/>" +
-			"<span class='fineprint'>Difficulty: " + getDifficulty(match.x1, match.x2) + "</span>"
+			oops +
+			"<span class='fineprint'>Difficulty: " + getDifficulty(match.win) + "</span>"
 
 	if( count > 0 ) {
 		return "<p><strong>Match " + count + "</strong><br/>" + text + "</p>"
@@ -23,9 +30,9 @@ function buildMatchResult(match, count, choice, xstats) {
 	}
 }
 
-function getDifficulty(x1,x2) {
+function getDifficulty(val) {
 	// these thresholds were decided by using an (outdated) spreadsheet against a thousand matches. eh it's probably fine
-	var x = Math.abs(x1 - x2)
+	var x = Math.abs(val)
 	if( x == 0 ) {
 		return "BUGGED" // there's supposed to be validation to keep a tie from happening. please report this
 	}

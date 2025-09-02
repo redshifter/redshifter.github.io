@@ -17,7 +17,9 @@
 <div id="error" style="display:none">
 </div>
 <div id="game" style="display:none">
-	<p id="modeTitle">LOL X-STATS WINNING STREAK!</p>
+	<span class="title" id="modeTitle">LOL X-STATS WINNING STREAK!</span>
+	<br/>
+	An endless game of spite.
 	<p>Directions: Simply pick the character who would get more votes on an outdated Internet website.</p>
 	<p id="modeRule"></p>
 	<p class="finePrint">I used the unadjusted stats because I have no idea where to find the good ones. Eh I'm sure it'll be fine.</p>
@@ -91,6 +93,10 @@
 			document.getElementById("modeRule").innerHTML = "<strong>Sicko Mode</strong>: Every character in this mode is from a three-way or four-way match!"
 			document.getElementById("modeTitle").innerHTML = "LOL X-STATS SICKO MODE!"
 		}
+		else if( mode == "balance" ) {
+			document.getElementById("modeRule").innerHTML = "<strong>Balance Mode</strong>: Only 1v1 matches allowed (for normal people?)."
+			document.getElementById("modeTitle").innerHTML = "LOL X-STATS BALANCE MODE!"
+		}
 		else {
 			document.getElementById("modeRule").style.display = ""
 			mode = "streak"
@@ -158,6 +164,23 @@
 				 name.indexOf("Summer 2007") > -1 ||
 				 name.indexOf("Fall 2008") > -1 ||
 				 name.indexOf("Summer 2013") > -1
+			) {
+				return true
+			}
+			else {
+				return false
+			}
+		}
+		else if( mode == "balance" ) {
+			if(
+				 name.indexOf("Summer 2002") > -1 ||
+				 name.indexOf("Summer 2003") > -1 ||
+				 name.indexOf("Summer 2004") > -1 ||
+				 name.indexOf("Spring 2005") > -1 ||
+				 name.indexOf("Summer 2005") > -1 ||
+				 name.indexOf("Summer 2006") > -1 ||
+				 name.indexOf("Winter 2010") > -1 ||
+				 name.indexOf("Fall 2018") > -1
 			) {
 				return true
 			}

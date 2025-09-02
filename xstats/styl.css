@@ -28,3 +28,22 @@ a:link {
 a:visited {
   color: #8080FF;
 }
+
+table {
+	border: 1px solid white;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+td {
+	border: 1px solid white;
+	width: 250px
+}
+
+.winner {
+	background:#408040
+}
+
+.TITLE {
+	font-size:48px;
+}
