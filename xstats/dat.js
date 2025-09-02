@@ -978,7 +978,7 @@ datnm[828] = 'Princess Peach [Summer 2013]'; datx[828] = 17.06;
 datnm[829] = 'Meta Knight [Summer 2013]'; datx[829] = 17.01;
 datnm[830] = 'Riku [Summer 2013]'; datx[830] = 16.84;
 datnm[831] = 'Fox McCloud [Summer 2013]'; datx[831] = 16.82;
-datnm[832] = 'Slime [Summer 2013]'; datx[832] = 16.69;
+datnm[832] = 'Slime (Dragon Quest) [Summer 2013]'; datx[832] = 16.69;
 datnm[833] = 'Agent 47 [Summer 2013]'; datx[833] = 16.63;
 datnm[834] = 'Lloyd Irving [Summer 2013]'; datx[834] = 16.50;
 datnm[835] = 'Cole MacGrath [Summer 2013]'; datx[835] = 16.45;
