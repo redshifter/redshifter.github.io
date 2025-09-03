@@ -1,11 +1,12 @@
-function contestHistory(name1, name2) {
+function contestHistory(...names) {
 	resetInfo();
-	if( name1 == null || name2 == null ) return
+	//if( names.length == 0 ) return;
+	//if( name1 == null || name2 == null ) return
 	
 	var contestInfo = document.getElementById("contestInfo");
-	var names = [name1, name2];
+	//var names = [name1, name2];
 	
-	for( var i = 0; i < 2; i++ ) {
+	for( var i = 0; i < names.length; i++ ) {
 		var vis = ""
 		if( names[i].indexOf("Summer 2002") > -1 ) vis = "Summer2002"
 		else if( names[i].indexOf("Summer 2003") > -1 ) vis = "Summer2003"
@@ -39,10 +40,10 @@ function resetInfo() {
 			"<span style='display:none' id='Summer2002'>Summer 2002 was Basic 1v1. Link = 50%<br/></span>" +
 			"<span style='display:none' id='Summer2003'>Summer 2003 was Basic 1v1. Cloud = 50%<br/></span>" +
 			"<span style='display:none' id='Summer2004'>Summer 2004 was Basic 1v1. Link = 50%<br/></span>" +
-			"<span style='display:none' id='Spring2005'>Spring 2005 was 1v1, Villains. Sephiroth = 45% [NOT 50, THIS IS A PATCH]<br/></span>" +
+			"<span style='display:none' id='Spring2005'>Spring 2005 was 1v1, Villains. Sephiroth = 45% [NOT 50]<br/></span>" +
 			"<span style='display:none' id='Summer2005'>Summer 2005 was Basic 1v1. Link = 50%<br/></span>" +
 			"<span style='display:none' id='Summer2006'>Summer 2006 was 1v1, Male/Female. Samus = 40% [NOT 50]<br/></span>" +
-			"<span style='display:none' id='Summer2007'>Summer 2007 was 4-way. L-Block = 50%<br/></span>" + // i do not have xstats for this
+			"<span style='display:none' id='Summer2007'>Summer 2007 was 4-way. L-Block = 50%<br/></span>" + // i do not have xstats for this (update: i rolled my own xstats for this using the methodology used for the 2008 xstats)
 			"<span style='display:none' id='Fall2008'>Fall 2008 was 4-way. Link = 50%<br/></span>" + // we don't really want this one
 			"<span style='display:none' id='Winter2010'>Winter 2010 was 1v1, 12 hour matches. Link = 50%<br/></span>" +
 			"<span style='display:none' id='Summer2013'>Summer 2013 was 3-way. Draven = 50%<br/></span>" + // do we really even want this one?

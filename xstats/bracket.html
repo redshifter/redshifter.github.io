@@ -136,15 +136,13 @@
 			<input type="button" value="Submit" onclick="submitBracket()" class="butt" />
 			<p id="invalidBracket" class="smallerPrint"></p>
 		</p>
+		<div id="contestInfo" class="smallerPrint">
+		</div>
 	</div>
 	<p id="runContest" style="display:none">
 		<span id="runContestResults"></span><br/>
 		<input type="button" value="Speed it up" onclick="speedItUp()" class="butt" />
 	</p>
-	<!--
-	<div id="contestInfo">
-	</div>
-	-->
 	
 	<div id="endedGame" style="display:none">
 		<p>You got <span id="points"></span> out of 40 points.</p>
@@ -388,6 +386,26 @@
 	}
 	
 	function simulateBracket() {
+		// continuning to insist this is the best way to write this method
+		contestHistory(
+			chara[0].ch, 
+			chara[1].ch, 
+			chara[2].ch, 
+			chara[3].ch, 
+			chara[4].ch, 
+			chara[5].ch, 
+			chara[6].ch, 
+			chara[7].ch, 
+			chara[8].ch, 
+			chara[9].ch, 
+			chara[10].ch, 
+			chara[11].ch, 
+			chara[12].ch, 
+			chara[13].ch, 
+			chara[14].ch, 
+			chara[15].ch
+		)
+
 		var m1 = 0
 		var m2 = 0
 		for( var round = 0; round < 4; round++ ) {
@@ -1059,12 +1077,34 @@
 		
 		// chances:
 		// NobleBuster - has its own criteria
+		// new numbers (decrease chance of Ultimate Loser because that game is actually boring; why is it even in the game)
+		// Four Pack       = 25
+		// Turbo Fodder    = 25 (50)
+		// Instant Classic = 25 (75)
+		// Tanner Game     = 15 (90)
+		// Ultimate Loser  = 10 (10)
+
+		// old number
 		// Four Pack       = 25
 		// Ultimate Loser  = 22 (47)
 		// Turbo Fodder    = 22 (69)
 		// Instant Classic = 21 (90)
 		// Tanner Game     = 10 (100)
-		
+
+		// hand-craft the first 10 weeks (technically noble buster isn't handcrafted)
+		if( gameNumber > 0 && gameNumber <= 10 ) {
+			// give the players a taste of all the bonus games to start out
+			var earlyRand = gameNumber % 6;
+			switch( earlyRand ) {
+			case 1: r = 0.74; break // instant classic
+			case 2: r = 0.24; break // four pack
+			case 3: r = 0.49; break // turbo fodder
+			case 4: r = 0.89; break // tanner's game
+			case 5: r = 0.99; break // ultimate loser
+			case 0: break; // noble buster should automatically come up here
+			}
+		}
+
 		if( nobleBuster(random()) ) {
 			// there are specific requirements to make Noble Buster show up
 			bonusGame = "nobleBuster"
@@ -1074,14 +1114,11 @@
 			bonusGame = "fourPack"
 			generateFourPack()
 		}
-		else if( r < 0.47 ) {
-			bonusGame = "ultimateLoser"
-		}
-		else if( r < 0.69 ) {
+		else if( r < 0.50 ) {
 			bonusGame = "turboFodder"
 			document.getElementById("fod0").checked = true
 		}
-		else if( r < 0.90 ) {
+		else if( r < 0.75 ) {
 			bonusGame = "instantClassic"
 			document.getElementById("classicW").checked = true
 			// prepare the characters
@@ -1095,9 +1132,12 @@
 			document.getElementById("classicChar").innerHTML = 
 				chara[bracket[classicMatch].i1].nm + " vs " + chara[bracket[classicMatch].i2].nm
 		}
-		else {
+		else if( r < 0.90 ) {
 			bonusGame = "tannerGame"
 			document.getElementById("tannerPercent").value = "50"
+		}
+		else {
+			bonusGame = "ultimateLoser"
 		}
 		
 		document.getElementById(bonusGame).style.display = ""
@@ -1319,7 +1359,7 @@
 			var n1 = noble[bracket[match].i1]
 			var n2 = noble[bracket[match].i2]
 			if( n1 != n2 ) {
-				// ensure there is no match booked where a noble loses by more than 5.0% (RAW WIN) to a non-noble (why is Crono even here?!)
+				// ensure there is no match booked where a noble loses by more than 7.0% (RAW WIN) to a non-noble (why is Crono even here?!)
 				var win = bracket[match].win
 				if( (n1 && win < 0) || (n2 && win > 0) ) {
 					// the noble nine has been busted
@@ -1327,29 +1367,32 @@
 						nobleBusted = true
 						nobleLoser = (win < 0) ? chara[bracket[match].i1].nm : chara[bracket[match].i2].nm
 					}
-					if( Math.abs(win) > 5 ) {
+					// this isn't really needed, is it?
+					/*
+					if( Math.abs(win) > 7 ) {
 						if( debug ) alert("crono blew it again")
 						return false
 					}
+					*/
 				}
 				win = Math.abs(win)
 				if( rawNobleWin > win ) rawNobleWin = win
 			}
 		}
 		
-		// - if the closest match is beyond 5.0%: 1% chance of noble buster
-		// - if the closest match is within 5.0%: 25% chance of noble buster
+		// - if the closest match is beyond 5.0%: 2% chance of noble buster
+		// - if the closest match is within 5.0%: 10% chance of noble buster
 		// - if the closest match is within 2.9% (Very Hard): 50% chance of noble buster
-		// - if the closest match is within 1.4% (Legendary): 100% chance of noble buster
-		var chance = 0.01
+		// - if the closest match is within 1.4% (Legendary): 90% chance of noble buster (this percentage chosen to make it show up Week 6)
+		var chance = 0.02
 		if( rawNobleWin <= 1.4 ) {
-			chance = 1.00
+			chance = 0.90
 		}
 		else if( rawNobleWin < 2.9 ) {
 			chance = 0.50
 		}
 		else if( rawNobleWin < 5.0 ) {
-			chance = 0.25
+			chance = 0.10
 		}
 		if( debug ) alert("noble chance = " + chance)
 		
@@ -1402,7 +1445,6 @@
 		document.getElementById("error").innerHTML = "argh i tore my " + msg
 	}
 	
-	/*
 	function test() {
 		testFlag = true
 		var x = 0
@@ -1420,13 +1462,14 @@
 	}
 	
 	function test2() {
+		var first = ""
 		var ultimateLoser = 0
 		var turboFodder = 0
 		var tannerGame = 0
 		var nobleBuster = 0
 		var fourPack = 0
 		var instantClassic = 0
-		for( var i = 0; i < 100; i++ ) {
+		for( var i = 1; i <= 100; i++ ) {
 			generateGame(i);
 			switch( bonusGame ) {
 			case "ultimateLoser":
@@ -1439,6 +1482,7 @@
 				tannerGame++
 				break
 			case "nobleBuster":
+				if( nobleBuster == 0 ) first += "First Noble Buster: " + i
 				nobleBuster++
 				break
 			case "fourPack":
@@ -1455,10 +1499,10 @@
 			"turboFodder=" + turboFodder + "\n" +
 			"fourPack=" + fourPack + "\n" +
 			"instantClassic=" + instantClassic + "\n" +
-			"tannerGame=" + tannerGame + "\n"
+			"tannerGame=" + tannerGame + "\n\n" +
+			first
 		)
 	}
-	*/
 	
 	generateToday();
 	document.getElementById("game").style.display = ""
