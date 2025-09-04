@@ -158,12 +158,15 @@
 			// start pulling things
 			//var gen = sampleData();
 			if( override[number] == null ) {
-				var gen = generateData();
-				matches = sortData(gen)
+				matches = generateDailyData();
+				// change this to two-in-one
+				//var gen = generateData();
+				//matches = sortData(gen)
 			}
 			else {
 				for( var i = 0; i < 6; i++ ) {
 					matches[i] = override[number][i]
+					matches[i] = formatMatch(matches[i])
 				}
 			}
 			
@@ -293,6 +296,7 @@
 		document.getElementById("error").innerHTML = "argh i tore my " + msg
 	}
 	
+	/*
 	function generateData() {
 		var gen = []
 		for( var i = 0; i < 6; i++ ) {
@@ -353,6 +357,7 @@
 		
 		return sortGen;
 	}
+	*/
 
 	generateToday();
 	runGameList("daily");

@@ -117,11 +117,21 @@
 				</span>
 				<span id="instantClassic" style="display:none">
 					<strong>BONUS GAME: INSTANT CLASSIC</strong></br>
-					How do you feel about <span id="classicChar">>L-Block vs Travis Touchdown</span>?<br/>
+					How do you feel about <span id="classicChar">L-Block vs Travis Touchdown</span>?<br/>
 					<span class="smallerPrint">Do you think you have it right? Do you think it's close?</span><br/>
 					<input type='radio' id="classicW" name='classicr' value='W' /><label for='classicW'>It was never in doubt! (+4 if correct)</label><br/>
 					<input type='radio' id="classicY" name='classicr' value='Y' /><label for='classicY'>Instant Classic! (+4 if Legendary, +3 if Very Hard)</label><br/>
-					<input type='radio' id="classicN" name='classicr' value='N' /><label for='classicN'>I'm kind of winging it... (+2 guaranteed)</label>
+					<input type='radio' id="classicN" name='classicr' value='N' /><label for='classicN'>I'm kind of winging it... (+2 guaranteed)</label><br/>
+					<br/>
+					<span id="ic_patch0" style="display:none" class="smallerPrint">
+							<strong>WEEK 1 WAS PLAYED UNDER DIFFERENT RULES:</strong><br/>
+							- Legendary: X-Stat values are within 1.4%<br/>
+							- Very Hard: X-Stat values are within 2.9%
+					</span>
+					<span id="ic_patch1" class="smallerPrint">
+						- Legendary: Winner gets 51.70% or less of the vote<br/>
+						- Very Hard: Winner gets 54.00% or less of the vote
+					</span>
 				</span>
 				<span id="nobleBuster" style="display:none">
 					<strong>BONUS GAME: NOBLE BUSTER</strong></br>
@@ -285,6 +295,7 @@
 		for( var i = 0; i < 16; i++ ) {
 			var a = Math.floor(random() * datmax)
 			chara[i] = {
+				"i":a,
 				"ch":datnm[a],
 				"x":datx[a],
 				"nm":datnm[a].substring(0, datnm[a].indexOf(" ["))
@@ -430,19 +441,25 @@
 				bracket[m2] = {
 					"ch1":chara[a].ch,
 					"ch2":chara[b].ch,
-					"x1":adjust(chara[a].x,chara[b].x),
-					"x2":adjust(chara[b].x,chara[a].x),
+					"x1":chara[a].x,
+					"x2":chara[b].x,
+//					"x1":adjust(chara[a].x,chara[b].x),
+//					"x2":adjust(chara[b].x,chara[a].x),
 					"win":(chara[a].x - chara[b].x),
 					"i1":a,
 					"i2":b
 				};
-				
+				formatMatch(bracket[m2])
+
+				bracket[m2].adjustWin = bracket[m2].v1 - bracket[m2].v2
+
 				m1 += 2
 				m2 += 1
 			}
 		}
 	}
 	
+	/*
 	function adjust(myVal, enemyVal) {
 		var val = Math.floor(
 			(myVal/(myVal+enemyVal)) * 10000
@@ -454,6 +471,7 @@
 		
 		return val
 	}
+	*/
 	
 	function vote(round, match, choice) {
 		var nextRound = round + 1
@@ -670,7 +688,7 @@
 			matchPointText += "<strong>Points Awarded: " + score + "/32</strong></p>"
 
 			// win percentage points
-			var realPercent = bracket[14].x1 > 50 ? bracket[14].x1 : bracket[14].x2
+			var realPercent = bracket[14].v1 > 50 ? bracket[14].v1 : bracket[14].v2
 			var dist = Math.floor(Math.abs(realPercent - chosenPercent) * 100) / 100
 			
 			var percentText = "<p><strong>Finals Win Percent: " + realPercent + "%</strong><br/>"
@@ -934,17 +952,20 @@
 			}
 		}
 
-		var winner = bracket[14].x1 > 50 ? bracket[14].i1 : bracket[14].i2;
+		var winner = bracket[14].v1 > 50 ? bracket[14].i1 : bracket[14].i2;
 		
 		var bonusMatch = {
 			"ch1":chara[winner].ch,
 			"ch2":datnm[tannerIndex],
-			"x1":adjust(chara[winner].x,tannerX),
-			"x2":adjust(tannerX,chara[winner].x),
+			//"x1":adjust(chara[winner].x,tannerX),
+			//"x2":adjust(tannerX,chara[winner].x),
+			"x1":chara[winner].x,
+			"x2":tannerX,
 			"win":(chara[winner].x - tannerX)
 		};
+		formatMatch(bonusMatch)
 		
-		var dist = Math.floor(Math.abs(bonusMatch.x1 - tannerPercent) * 100) / 100
+		var dist = Math.floor(Math.abs(bonusMatch.v1 - tannerPercent) * 100) / 100
 		
 		var percentText = "<p><strong>T4NN3R B0NU5</strong><br/>"
 			+ buildMatchResult(bonusMatch) + "<br/>"
@@ -969,7 +990,14 @@
 
 		var bonusMatch = bracket[classicMatch]
 		var winner = bonusMatch.win > 0 ? bonusMatch.ch1 : bonusMatch.ch2
-		var diff = getDifficulty(bonusMatch.win)
+		var diff;
+		
+		if( gameNumber == 1 ) {
+			diff = getDifficulty(bonusMatch.win)
+		}
+		else {
+			diff = getNewDifficulty(bonusMatch.x1, bonusMatch.x2)
+		}
 		
 		// show the information
 		classicText += "<br/><strong>MATCH WINNER</strong>: " + winner
@@ -988,7 +1016,7 @@
 				classicText += "[WRONG]"
 				if( diff.indexOf("LEGENDARY") > -1 ) {
 					classicScore = 1
-					classicText += "<br/><span class='finePrint'>Because the match was Legendary, trying to call the winner still earns you 1 drama point.</span>"
+					classicText += "<br/><span class='finePrint'>Because the match was Legendary, trying to call the winner still earned you 1 drama point.</span>"
 				}
 			}
 		}
@@ -1124,13 +1152,29 @@
 			// prepare the characters
 			classicMatch = 0
 			for( var match = 1; match < 8; match++ ) {
-				if( Math.abs(bracket[match].win) < Math.abs(bracket[classicMatch].win) ) {
-					classicMatch = match
+				if( gameNumber == 1 ) {
+					if( Math.abs(bracket[match].win) < Math.abs(bracket[classicMatch].win) ) {
+						classicMatch = match
+					}
+				}
+				else {
+					if( Math.abs(bracket[match].adjustWin) < Math.abs(bracket[classicMatch].adjustWin) ) {
+						classicMatch = match
+					}
 				}
 			}
 			// write in the characters from the match
 			document.getElementById("classicChar").innerHTML = 
 				chara[bracket[classicMatch].i1].nm + " vs " + chara[bracket[classicMatch].i2].nm
+			
+			if( gameNumber == 1 ) {
+				document.getElementById("ic_patch0").style.display = ""
+				document.getElementById("ic_patch1").style.display = "none"
+			}
+			else {
+				document.getElementById("ic_patch0").style.display = "none"
+				document.getElementById("ic_patch1").style.display = ""
+			}
 		}
 		else if( r < 0.90 ) {
 			bonusGame = "tannerGame"
@@ -1216,12 +1260,15 @@
 				fourPack[match] = {
 					"ch1":fourChar[a].ch,
 					"ch2":fourChar[b].ch,
-					"x1":adjust(fourChar[a].x,fourChar[b].x),
-					"x2":adjust(fourChar[b].x,fourChar[a].x),
+					//"x1":adjust(fourChar[a].x,fourChar[b].x),
+					//"x2":adjust(fourChar[b].x,fourChar[a].x),
+					"x1":fourChar[a].x,
+					"x2":fourChar[b].x,
 					"win":(fourChar[a].x - fourChar[b].x),
 					"i1":a,
 					"i2":b
 				};
+				formatMatch(fourPack[match])
 				
 				var text = ""
 				for( var choice = 0; choice < 2; choice++ ) {

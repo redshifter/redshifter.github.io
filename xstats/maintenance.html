@@ -74,8 +74,9 @@
 			seedRandom(number);
 			
 			// start pulling things
-			var gen = generateData();
-			var matches = sortData(gen)
+			//var gen = generateData();
+			//var matches = sortData(gen)
+			matches = generateDailyData();
 			
 			// start the game
 			//var result = document.getElementById("results");
@@ -94,6 +95,7 @@
 		}
 	}
 	
+	/*
 	function generateData() {
 		var gen = []
 		for( var i = 0; i < 6; i++ ) {
@@ -154,6 +156,7 @@
 		
 		return sortGen;
 	}
+	*/
 
 	/*
 		readable = false

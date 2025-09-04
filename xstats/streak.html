@@ -246,6 +246,7 @@
 			valid = (datx[a] != datx[b]);
 		}
 	
+		/*
 		match = {
 			"ch1":datnm[a],
 			"ch2":datnm[b],
@@ -253,6 +254,8 @@
 			"x2":datx[b],
 			"win":(datx[a] - datx[b])
 		};
+		*/
+		match = bookMatch(a,b)
 	
 		var button = [
 			document.getElementById("topOp"),
