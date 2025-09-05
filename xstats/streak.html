@@ -83,7 +83,7 @@
 	var match = 0
 	var count = 0
 	var correct = 0
-	var bestWin = 50
+	var bestWin = 100
 	var inPlay = 0
 	var resultsHTML = "" // we need to optimize this shit a lot harder
 	
@@ -110,7 +110,7 @@
 			match = null
 			count = 0
 			correct = 0
-			bestWin = 50
+			bestWin = 100
 			inPlay = 0
 			resultsHTML = ""
 			
@@ -333,8 +333,8 @@
 	}
 	
 	function bestChoice(choice, xstats) {
-		if( Math.abs(match.win) < bestWin ) {
-			bestWin = Math.abs(match.win);
+		if( Math.abs(match.winv) < bestWin ) {
+			bestWin = Math.abs(match.winv);
 			document.getElementById("bestWin").innerHTML = "Most Impressive Correct Choice:<br/>"
 				+ "<span class='fineprint'>aka \"why are these characters this close to each other?\"</span><br/>"
 				+ buildMatchResult(match, 0, choice, xstats)
