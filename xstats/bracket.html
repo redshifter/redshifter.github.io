@@ -1191,7 +1191,47 @@
 		var validation = document.getElementById("invalidBracket");
 		
 		if( bonusGame == "nobleBuster" ) {
-			// something is guaranteed selected
+			// make sure our choice is based on our bracket
+			var nobleN = document.getElementById("noblerN").checked;
+			var nobleY = document.getElementById("noblerY").checked;
+
+			var projectNobleBuster = null
+			var projectNobleLoser = null
+			
+			// don't use bracket object for projections
+			for( var round = 0; round < 4; round++ ) {
+				for( var match = 0; match < matchCount(round); match++ ) {
+					var datTop = document.getElementById("r" + getId(round, match, 0)).checked
+					var ch1 = document.getElementById("ch" + getId(round, match, 0)).innerHTML
+					var ch2 = document.getElementById("ch" + getId(round, match, 1)).innerHTML
+					var noble1 = isNoble(ch1)
+					var noble2 = isNoble(ch2)
+					if( noble1 != noble2 ) {
+						if( noble1 && !datTop ) {
+							projectNobleBuster = ch2
+							projectNobleLoser = ch1
+							break;
+						}
+						else if( noble2 && datTop ) {
+							projectNobleBuster = ch1
+							projectNobleLoser = ch2
+							break;
+						}
+					}
+				}
+				if( projectNobleBuster != null ) break
+			}
+
+			if( nobleN && projectNobleBuster != null ) {
+				projectNobleBuster = projectNobleBuster.substring(0,projectNobleBuster.indexOf(" ["));
+				projectNobleLoser = projectNobleLoser.substring(0,projectNobleLoser.indexOf(" ["));
+				validation.innerHTML = "Noble Buster does not match your bracket.<br/>You have " + projectNobleLoser + " losing to " + projectNobleBuster + "."
+				return false
+			}
+			else if( nobleY && projectNobleBuster == null ) {
+				validation.innerHTML = "Noble Buster does not match your bracket.<br/>Who is supposed to be killing the Noble Nine?"
+				return false
+			}
 		}
 		else if( bonusGame == "ultimateLoser" ) {
 			// automatic
@@ -1357,6 +1397,27 @@
 			generateGame(game);
 		}
 	}
+
+	function isNoble(name) { 
+		if( name.indexOf(" [") > -1 ) {
+			name = name.substring(0, name.indexOf(" ["));
+		}
+
+		switch( name ) {
+		case "Link":
+		case "Cloud":
+		case "Sephiroth":
+		case "Mario":
+		case "Samus":
+		case "Sonic":
+		case "Mega Man":
+		case "Snake":
+		case "Crono":
+			return true
+		default:
+			return false
+		}
+	}
 	
 	
 	function nobleBuster(rng) {
@@ -1365,22 +1426,8 @@
 		var noble = []
 		var nobleUnder50 = false
 		for( var ch = 0; ch < 16; ch++ ) {
-			switch( chara[ch].nm ) {
-			case "Link":
-			case "Cloud":
-			case "Sephiroth":
-			case "Mario":
-			case "Samus":
-			case "Sonic":
-			case "Mega Man":
-			case "Snake":
-			case "Crono":
-				noble[ch] = true
-				break;
-			default:
-				noble[ch] = false
-			}
-			
+			noble[ch] = isNoble(chara[ch].nm);
+
 			if( chara[ch].x == 50 ) {
 				// ensure there is no non-noble with 50% RAW (Draven, L-Block) - this would be too esay
 				if( !noble[ch] ) {
