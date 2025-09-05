@@ -1121,7 +1121,7 @@ datnm[971] = 'Fawful [Summer 2013]'; datx[971] = 5.48;
 datnm[972] = 'Guybrush Threepwood [Summer 2013]'; datx[972] = 5.47;
 datnm[973] = 'Francis York Morgan [Summer 2013]'; datx[973] = 5.25;
 datnm[974] = 'Max Payne [Summer 2013]'; datx[974] = 5.17;
-datnm[975] = 'Hades [Summer 2013]'; datx[975] = 5.11;
+datnm[975] = 'Hades (Kid Icarus) [Summer 2013]'; datx[975] = 5.11;
 datnm[976] = 'Caim [Summer 2013]'; datx[976] = 4.96;
 datnm[977] = 'Wolf O\'Donnell [Summer 2013]'; datx[977] = 4.88;
 datnm[978] = 'Adol Christin [Summer 2013]'; datx[978] = 4.57;
