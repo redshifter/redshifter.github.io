@@ -1056,8 +1056,8 @@
 		var d = new Date()
 		
 		var terminus = Date.UTC(startYear, startMonth, startDay);
-		//var today = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-		var today = Date.UTC(2025, 9-1, 6)
+		var today = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+		//var today = Date.UTC(2025, 9-1, 6)
 		
 		if( today < terminus ) {
 			arrowed("system clock")
