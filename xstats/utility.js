@@ -46,29 +46,29 @@ function getNewDifficulty(xstat1, xstat2) {
 	if( x <= 50.00 ) {
 		return "BUGGED" // there's supposed to be validation to keep a tie from happening. please report this
 	}
-	else if( x < 50.20 ) {
-		return "LUSTER LEGENDARY!!!" // 1.2% (1.0%)
+	else if( x < 50.50 ) {
+		return "LUSTER LEGENDARY!!!" // 1.4% (1.4%)
 	}
-	else if( x < 50.70 ) {
-		return "SUPER LEGENDARY!" // 2.6% (3.8%)
+	else if( x < 51.50 ) {
+		return "SUPER LEGENDARY!" // 2.5% (3.9%)
 	}
-	else if( x < 51.70 ) {
-		return "LEGENDARY" // 3.8% (7.6%)
+	else if( x < 53.00 ) {
+		return "LEGENDARY" // 3.1% (7.0%)
 	}
-	else if( x < 54.00 ) {
-		return "Very Hard" // 10.4% (18.0%)
+	else if( x < 57.00 ) {
+		return "Very Hard" // 9.6% (16.6%)
 	}
-	else if( x < 58.00 ) {
-		return "Hard" // 21.6% (39.6%)
+	else if( x < 64.00 ) {
+		return "Hard" // 23.3% (39.9%)
 	}
-	else if( x < 65.00 ) {
-		return "Medium" // 29.0% (68.6%)
+	else if( x < 73.00 ) {
+		return "Medium" // 28.3% (68.2%)
 	}
-	else if( x < 75.00 ) {
-		return "Easy" // 21.3% (89.9%)
+	else if( x < 82.00 ) {
+		return "Easy" // 20.1% (88.3%)
 	}
 	else {
-		return "Very Easy" // 10.1% (100.0%)
+		return "Very Easy" // 11.7% (100.0%)
 	}	
 }
 
@@ -220,6 +220,20 @@ function generateDailyData() {
 }
 
 function adjust(myVal, enemyVal) {
+	// proper adjustment (thanks to metal for pointing out that this was wrong)
+	var winx = Math.max(myVal, enemyVal);
+	var multiplier = 50 / winx;
+
+	var loserPercent = Math.min(myVal * multiplier, enemyVal * multiplier)
+	if( myVal < enemyVal ) {
+		return Math.floor(loserPercent * 100) / 100
+	}
+	else {
+		return Math.floor((100 - loserPercent) * 100) / 100
+	}
+}
+/*
+function adjust(myVal, enemyVal) {
 	var val = Math.floor(
 		(myVal/(myVal+enemyVal)) * 10000
 	) / 100;
@@ -230,3 +244,4 @@ function adjust(myVal, enemyVal) {
 	
 	return val
 }
+*/
