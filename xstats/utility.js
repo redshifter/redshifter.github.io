@@ -226,10 +226,10 @@ function adjust(myVal, enemyVal) {
 
 	var loserPercent = Math.min(myVal * multiplier, enemyVal * multiplier)
 	if( myVal < enemyVal ) {
-		return Math.floor(loserPercent * 100) / 100
+		return Math.round(loserPercent * 100) / 100
 	}
 	else {
-		return Math.floor((100 - loserPercent) * 100) / 100
+		return Math.round((100 - loserPercent) * 100) / 100
 	}
 }
 /*
