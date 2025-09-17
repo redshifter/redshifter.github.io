@@ -1145,6 +1145,10 @@
 		else if( r < 0.50 ) {
 			bonusGame = "turboFodder"
 			document.getElementById("fod0").checked = true
+
+			for( var i = 0; i < 8; i++ ) {
+				document.getElementById("fodd"+i).innerHTML = "[finish Round 1]"
+			}
 		}
 		else if( r < 0.75 ) {
 			bonusGame = "instantClassic"
@@ -1272,9 +1276,19 @@
 		try {
 			var fourChar = []
 			for( var i = 0; i < 4; i++ ) {
-				var match = (i * 4)
-				var rand = Math.floor((bracket[match].x1 * 100) % 4) // take a "random" seed (also i hate doubles)
-				fourChar[i] = chara[match + rand]
+				// add an iteration so we can decide to throw out characters that would make the four-pack too easy
+				for( var z = 0; z < 4; z++ ) {
+					var match = (i * 4)
+					var rand = Math.floor((z + (bracket[match].x1 * 100)) % 4) // take a "random" seed (also i hate doubles)
+					fourChar[i] = chara[match + rand]
+
+					if( gameNumber == 2 ) break // week 2 had Link. that was dumb
+
+					if( fourChar[i].x > 40 ) continue; // remove high powered characters
+					if( fourChar[i].x < 10 ) continue; // remove turbo fodder
+					
+					break;
+				}
 			}
 			//document.getElementById("four0").innerHTML = fourPack[0].ch + "<br/>" + fourPack[1].ch
 			//document.getElementById("four1").innerHTML = fourPack[2].ch + "<br/>" + fourPack[3].ch
