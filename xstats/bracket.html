@@ -134,7 +134,7 @@
 					</span>
 				</span>
 				<span id="nobleBuster" style="display:none">
-					<strong>BONUS GAME: NOBLE BUSTER</strong></br>
+					<strong>BONUS GAME: CASUAL REVOLUTION</strong></br>
 					<span>Does the Noble Nine lose to anyone outside the Noble Nine?</span><br/>
 					<span class="smallerPrint">The Noble Nine is: Link, Cloud, Sephiroth, Mario, Samus, Sonic, Mega Man, Snake, and Crono.</span><br/>
 					<input type='radio' id="noblerN" name='nobler' value='N'/><label for='noblerN'>Long live the Noble Nine! (+4 if correct)</label><br/>
@@ -1229,11 +1229,11 @@
 			if( nobleN && projectNobleBuster != null ) {
 				projectNobleBuster = projectNobleBuster.substring(0,projectNobleBuster.indexOf(" ["));
 				projectNobleLoser = projectNobleLoser.substring(0,projectNobleLoser.indexOf(" ["));
-				validation.innerHTML = "Noble Buster does not match your bracket.<br/>You have " + projectNobleLoser + " losing to " + projectNobleBuster + "."
+				validation.innerHTML = "Your decision in Casual Revolution does not match your bracket.<br/>You have " + projectNobleLoser + " losing to " + projectNobleBuster + "."
 				return false
 			}
 			else if( nobleY && projectNobleBuster == null ) {
-				validation.innerHTML = "Noble Buster does not match your bracket.<br/>Who is supposed to be killing the Noble Nine?"
+				validation.innerHTML = "Your decision in Casual Revolution does not match your bracket.<br/>The Noble Nine is not losing to anyone outside of it."
 				return false
 			}
 		}
@@ -1508,7 +1508,7 @@
 	}
 	
 	function playNobleBuster() {
-		var nobleText = "<p><strong>NOBLE BUSTER</strong>"
+		var nobleText = "<p><strong>CASUAL REVOLUTION</strong>"
 		var nobleScore = 0
 		
 		nobleText += "<br/><strong>THE NOBLE NINE "
@@ -1590,7 +1590,7 @@
 				tannerGame++
 				break
 			case "nobleBuster":
-				if( nobleBuster == 0 ) first += "First Noble Buster: " + i
+				if( nobleBuster == 0 ) first += "First Casual Revolution: " + i
 				nobleBuster++
 				break
 			case "fourPack":
