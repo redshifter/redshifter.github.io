@@ -35,14 +35,21 @@ function contestHistory(...names) {
 
 function resetInfo() {
 	try {
+		var spring2005Tooltip = "<sup title='" 
+			+ "I set Sephiroth to 45% to keep him consistent with the Summer 2005 Tournament of Champions."
+			+ "'><u>?</u></sup>";
+		var summer2006Tooltip = "<sup title='" 
+			+ "I set Samus to 40% to make her the #1 non-Link Nintendo character of the bracket. Pretty much any number you plug in here is a matter of opinion (unless you wanted to use the Battle Royale, and nobody wants that)."
+			+ "'><u>?</u></sup>";
+
 		// i'm sure there's a better way to do this. but i just don't care
 		document.getElementById("contestInfo").innerHTML =
 			"<span style='display:none' id='Summer2002'>Summer 2002 was Basic 1v1. Link = 50%<br/></span>" +
 			"<span style='display:none' id='Summer2003'>Summer 2003 was Basic 1v1. Cloud = 50%<br/></span>" +
 			"<span style='display:none' id='Summer2004'>Summer 2004 was Basic 1v1. Link = 50%<br/></span>" +
-			"<span style='display:none' id='Spring2005'>Spring 2005 was 1v1, Villains. Sephiroth = 45% [NOT 50]<br/></span>" +
+			"<span style='display:none' id='Spring2005'>Spring 2005 was 1v1, Villains. Sephiroth = 45% [NOT 50]" + spring2005Tooltip + "<br/></span>" +
 			"<span style='display:none' id='Summer2005'>Summer 2005 was Basic 1v1. Link = 50%<br/></span>" +
-			"<span style='display:none' id='Summer2006'>Summer 2006 was 1v1, Male/Female. Samus = 40% [NOT 50]<br/></span>" +
+			"<span style='display:none' id='Summer2006'>Summer 2006 was 1v1, Male/Female. Samus = 40% [NOT 50]" + summer2006Tooltip + "<br/></span>" +
 			"<span style='display:none' id='Summer2007'>Summer 2007 was 4-way. L-Block = 50%<br/></span>" + // i do not have xstats for this (update: i rolled my own xstats for this using the methodology used for the 2008 xstats)
 			"<span style='display:none' id='Fall2008'>Fall 2008 was 4-way. Link = 50%<br/></span>" + // we don't really want this one
 			"<span style='display:none' id='Winter2010'>Winter 2010 was 1v1, 12 hour matches. Link = 50%<br/></span>" +
