@@ -54,7 +54,7 @@ function resetInfo() {
 			"<span style='display:none' id='Fall2008'>Fall 2008 was 4-way. Link = 50%<br/></span>" + // we don't really want this one
 			"<span style='display:none' id='Winter2010'>Winter 2010 was 1v1, 12 hour matches. Link = 50%<br/></span>" +
 			"<span style='display:none' id='Summer2013'>Summer 2013 was 3-way. Draven = 50%<br/></span>" + // do we really even want this one?
-			"<span style='display:none' id='Fall2018'>Fall 2018 was 1v1. Link = 50%<br/></span>"
+			"<span style='display:none' id='Fall2018'>Fall 2018 was 1v1, double matches. Link = 50%<br/></span>"
 	}
 	catch( e ) {
 		arrowed("contest info");
