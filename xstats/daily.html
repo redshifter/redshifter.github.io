@@ -27,11 +27,9 @@
 	</p>
 	<p class="finePrint">I used the unadjusted stats because I have no idea where to find the good ones. Eh I'm sure it'll be fine.</p>
 	<p id="activeGame">
-		<span id="topWarn"></span>
 		<input type="button" id="topOp" value="Summer 2002 Link" onclick="datTopOption()" class="butt" />
 		vs 
 		<input type="button" id="bottomOp" value="Summer 2004 Tanner" onclick="bottomOption()" class="butt" />
-		<span id="botWarn"></span>
 	</p>
 	<div id="contestInfo">
 	</div>
@@ -173,39 +171,31 @@
 			// start the game
 			document.getElementById("game").style.display = ""
 			match = 0
-			initMatch()
+			//initMatch()
+			startMatch(matches[match]);
 		}
 		catch( e ) {
 			arrowed(e.message)
 		}
 	}
 	
+	/*
 	function initMatch() {
 		var button = [
 			document.getElementById("topOp"),
 			document.getElementById("bottomOp")
 		]
-		var warning = [
-			document.getElementById("topWarn"),
-			document.getElementById("botWarn")
-		]
+
 		button[0].value = matches[match].ch1
 		button[1].value = matches[match].ch2
 		
 		for( var i = 0; i < 2; i++ ) {
 			button[i].style.backgroundColor = randomColor()
-			/*
-			if( button[i].value.indexOf("Summer 2013") > -1 ) {
-				warning[i].innerHTML = "THREE-WAY X-STATS"
-			}
-			else {
-				warning[i].innerHTML = ""
-			}
-			*/
 		}
 		
 		contestHistory(matches[match].ch1, matches[match].ch2);
 	}
+	*/
 	
 	function randomColor() {
 		var x = "#"
@@ -251,7 +241,8 @@
 			match++
 			
 			if( match < 6 ) {
-				initMatch(match)
+				//initMatch(match)
+				startMatch(matches[match]);
 			}
 			else {
 				endGame()

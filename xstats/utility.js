@@ -245,3 +245,34 @@ function adjust(myVal, enemyVal) {
 	return val
 }
 */
+
+function startMatch(match) {
+	if( window.innerWidth > window.innerHeight ) {
+		// desktop
+		document.getElementById("activeGame").innerHTML = 
+			'<input type="button" id="topOp" value="Summer 2002 Link" onclick="vote(1)" class="butt" />'
+			+ ' vs '
+			+ '<input type="button" id="bottomOp" value="Summer 2004 Tanner" onclick="vote(-1)" class="butt" />';
+	}
+	else {
+		// mobiler
+		document.getElementById("activeGame").innerHTML = 
+			'<p><input type="button" id="topOp" value="Summer 2002 Link" onclick="vote(1)" class="butt" /></p>'
+			+ '<p>vs</p>'
+			+ '<p><input type="button" id="bottomOp" value="Summer 2004 Tanner" onclick="vote(-1)" class="butt" /></p>';
+	}
+	
+	var button = [
+		document.getElementById("topOp"),
+		document.getElementById("bottomOp")
+	]
+
+	button[0].value = match.ch1
+	button[1].value = match.ch2
+	
+	for( var i = 0; i < 2; i++ ) {
+		button[i].style.backgroundColor = randomColor()
+	}
+	
+	contestHistory(match.ch1, match.ch2);
+}
