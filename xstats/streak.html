@@ -103,7 +103,7 @@
 		}		
 		else if( mode == null ) {
 			document.getElementById("modeRule").style.display = ""
-			mode = "streak"
+			mode = "x-stats"
 		}
 		else {
 			throw "game mode";
@@ -341,12 +341,12 @@
 				correct++
 				bestChoice(choice, xstats)
 				resultBox.innerHTML += text[0]
-				streakBox.innerHTML = correct + " x-stats streak!"
+				streakBox.innerHTML = correct + " " + mode + " streak!"
 				initMatch()
 			}
 			else {
 				resultBox.innerHTML += text[1]
-				streakBox.innerHTML = correct + " x-stats streak"
+				streakBox.innerHTML = correct + " " + mode + " streak"
 				endGame(choice, xstats)
 			}
 		}

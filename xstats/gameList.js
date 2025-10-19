@@ -12,7 +12,7 @@ function runGameList(thisGame) {
 			) +
 		"<br/>" +
 		"<br class='finePrint'/>" + // make a separator
-			(thisGame != "streak"
+			(thisGame != "x-stats"
 				? "<a href='streak.html'>Winning Streak!</a>"
 				: "Winning Streak!"
 			) +
