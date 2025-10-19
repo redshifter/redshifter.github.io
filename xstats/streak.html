@@ -97,9 +97,16 @@
 			document.getElementById("modeRule").innerHTML = "<strong>Balance Mode</strong>: Only 1v1 matches allowed (for normal people?)."
 			document.getElementById("modeTitle").innerHTML = "LOL X-STATS BALANCE MODE!"
 		}
-		else {
+		else if( mode == "royale" ) {
+			document.getElementById("modeRule").innerHTML = "<strong>Royale Mode</strong>: Only the Noble Nine will appear!<br/><span class='fineprint'>If this sounds easy... you forgot that all these numbers are tainted by SFF.</span>"
+			document.getElementById("modeTitle").innerHTML = "LOL X-STATS ROYALE MODE!"
+		}		
+		else if( mode == null ) {
 			document.getElementById("modeRule").style.display = ""
 			mode = "streak"
+		}
+		else {
+			throw "game mode";
 		}
 	}
 	
@@ -188,6 +195,24 @@
 				return false
 			}
 		}
+		else if( mode == "royale" ) {
+			if(
+				 name.indexOf("Link") == 0 ||
+				 name.indexOf("Cloud") == 0 ||
+				 name.indexOf("Mario") == 0 ||
+				 name.indexOf("Sephiroth") == 0 ||
+				 name.indexOf("Snake [") == 0 ||
+				 name.indexOf("Mega Man [") == 0 ||
+				 name.indexOf("Crono") == 0 ||
+				 name.indexOf("Sonic [") == 0 ||
+				 name.indexOf("Samus") == 0
+			) {
+				return true
+			}
+			else {
+				return false
+			}
+		}
 		else {
 			// everyone is here!
 			return true;
@@ -198,8 +223,8 @@
 		inPlay = 0
 		var used = []
 		for( var i = 0; i < datmax; i++ ) {
-			charList[i] = -1
 			if( characterInMode(datnm[i]) ) {
+				charList[inPlay] = -1
 				inPlay++
 				used[i] = false
 			}
@@ -209,6 +234,7 @@
 		}
 		
 		// bad shuffling algorithm that is broken and it's just too much work to figure out where i went wrong
+		// 2 months later: you know comments like this are completely unhelpful, right?
 		for( var slot = 0; slot < inPlay; slot++ ) {
 			var roll = Math.floor(Math.random() * (inPlay - slot))
 			while( charList[slot] == -1 ) {
@@ -226,6 +252,12 @@
 				}
 			}
 		}
+
+		// reduce the size of charList if it's an odd number (thanks royale)
+		if( charList.length % 2 == 1 ) {
+			charList.pop();
+		}
+		//console.debug(charList);
 	}
 
 	function initMatch() {
@@ -365,10 +397,15 @@
 		document.getElementById("error").innerHTML = "argh i tore my " + msg
 	}
 	
-	setMode()
-	startStreak()
-	document.getElementById("game").style.display = ""
-	runGameList(mode);
+	try {
+		setMode()
+		startStreak()
+		document.getElementById("game").style.display = ""
+		runGameList(mode);
+	}
+	catch( e ) {
+		arrowed(e);
+	}
 </script>
 
 </body>
