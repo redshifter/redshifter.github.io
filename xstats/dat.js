@@ -287,7 +287,7 @@ datnm[137] = 'Zero [Summer 2004]'; datx[137] = 28.50;
 datnm[138] = 'Snake [Summer 2004]'; datx[138] = 27.73;
 datnm[139] = 'Auron [Summer 2004]'; datx[139] = 27.39;
 datnm[140] = 'Sora [Summer 2004]'; datx[140] = 26.98;
-datnm[141] = 'Frog [Summer 2004]'; datx[141] = 26.96;
+datnm[141] = 'Frog [Summer 2004]'; datx[141] = 26.97;
 datnm[142] = 'Master Chief [Summer 2004]'; datx[142] = 26.96;
 datnm[143] = 'Liquid Snake [Summer 2004]'; datx[143] = 26.94;
 datnm[144] = 'Dante [Summer 2004]'; datx[144] = 25.49;
