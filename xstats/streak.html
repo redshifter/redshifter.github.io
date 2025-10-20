@@ -53,6 +53,7 @@
 	</div>
 	
 	<input type="button" id="invisibleAutoWinButton" value="cheat" onclick="vote(0)" class="butt" style="display:none" />
+	<input type="button" id="invisibleAutoLoseButton" value="fail" onclick="vote('dicks')" class="butt" style="display:none" />
 	<p id="activeGame">
 		<input type="button" id="topOp" value="Summer 2002 Link" onclick="datTopOption()" class="butt" />
 		vs 
@@ -322,6 +323,7 @@
 			var xstats = (match.win < 0)
 			
 			if( option == 0 ) choice = xstats // cheat
+			if( option == 'dicks' ) choice = !xstats // other cheat
 			
 			var resultBox = document.getElementById("results")
 			var streakBox = document.getElementById("streak")
