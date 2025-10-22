@@ -234,6 +234,8 @@
 	document.getElementById("error").innerHTML = "argh i tore my JS compiler"
 </script>
 <script>
+	var DEBUG_HASH = "" // if we did actual good code maybe this would've been easy to do
+
 	document.getElementById("error").style.display = "none"
 	var textBlock = ["🟩","🟥","⬜","🟨"] // green, red, blank, yellow
 	var numeric = ["0️⃣","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣"]
@@ -260,6 +262,7 @@
 	
 	function generateGame(number) {
 		try {
+			DEBUG_HASH = number + ":"
 			gameNumber = number
 			chara = []
 			bracket = []
@@ -349,6 +352,7 @@
 		
 	}
 	
+	/*
 	function generateBracketObjects() {
 		try {
 			var text = ""
@@ -395,6 +399,7 @@
 			arrowed(e);
 		}
 	}
+	*/
 	
 	function simulateBracket() {
 		// continuning to insist this is the best way to write this method
@@ -457,6 +462,20 @@
 				m2 += 1
 			}
 		}
+
+		for( var i = 0; i < 15; i += 4 ) {
+			var value = 0;
+			var bit = 1;
+			for( var j = 0; j < 4; j++ ) {
+				if( i+j < 15 ) {
+					value += (bracket[i+j].adjustWin > 0 ? bit : 0);
+				}
+				bit *= 2;
+			}
+			DEBUG_HASH += String.fromCharCode(65+value);
+		}
+
+		DEBUG_HASH += String.fromCharCode(15 + (bracket[14].v1 > 50 ? bracket[14].v1 : bracket[14].v2)) + ":"
 	}
 	
 	/*
@@ -1137,10 +1156,12 @@
 			// there are specific requirements to make Noble Buster show up
 			bonusGame = "nobleBuster"
 			document.getElementById("noblerN").checked = true
+			DEBUG_HASH += "N" + (nobleBusted ? "B" : "J")
 		}
 		else if( r < 0.25 ) {
 			bonusGame = "fourPack"
 			generateFourPack()
+			DEBUG_HASH += "P" + "TODO"
 		}
 		else if( r < 0.50 ) {
 			bonusGame = "turboFodder"
@@ -1149,6 +1170,7 @@
 			for( var i = 0; i < 8; i++ ) {
 				document.getElementById("fodd"+i).innerHTML = "[finish Round 1]"
 			}
+			DEBUG_HASH += "F" + "TODO"
 		}
 		else if( r < 0.75 ) {
 			bonusGame = "instantClassic"
@@ -1179,13 +1201,16 @@
 				document.getElementById("ic_patch0").style.display = "none"
 				document.getElementById("ic_patch1").style.display = ""
 			}
+			DEBUG_HASH += "C" + "TODO"
 		}
 		else if( r < 0.90 ) {
 			bonusGame = "tannerGame"
 			document.getElementById("tannerPercent").value = "50"
+			DEBUG_HASH += "T" + "TODO"
 		}
 		else {
 			bonusGame = "ultimateLoser"
+			DEBUG_HASH += "L"
 		}
 		
 		document.getElementById(bonusGame).style.display = ""
@@ -1503,8 +1528,8 @@
 			chance = 0.10
 		}
 		if( debug ) alert("noble chance = " + chance)
-		
-		return rng < chance
+
+		return rng < chance;
 	}
 	
 	function playNobleBuster() {

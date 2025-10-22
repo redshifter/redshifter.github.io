@@ -27,6 +27,7 @@
 </script>
 <script type="text/javascript" src="rng.js"></script>
 <script type="text/javascript" src="dat.js"></script>
+<script type="text/javascript" src="utility.js"></script>
 <script>
 	document.getElementById("error").style.display = "none"
 
@@ -70,29 +71,24 @@
 	}
 
 	function generateGame(number) {
-		try {
-			seedRandom(number);
-			
-			// start pulling things
-			//var gen = generateData();
-			//var matches = sortData(gen)
-			matches = generateDailyData();
-			
-			// start the game
-			//var result = document.getElementById("results");
-			//result.innerHTML += "DAY " + number + "<br/>"
-			fullResults += "override[" + number + "] = ["
-			for( var i = 0; i < 6; i++ ) {
-				//result.innerHTML += JSON.stringify(matches[i]) + "<br/>"
-				if( readable ) fullResults += "<br/>"
-				fullResults += JSON.stringify(matches[i]) + ","
-			}
+		seedRandom(number);
+		
+		// start pulling things
+		//var gen = generateData();
+		//var matches = sortData(gen)
+		matches = generateDailyData();
+		
+		// start the game
+		//var result = document.getElementById("results");
+		//result.innerHTML += "DAY " + number + "<br/>"
+		fullResults += "override[" + number + "] = ["
+		for( var i = 0; i < 6; i++ ) {
+			//result.innerHTML += JSON.stringify(matches[i]) + "<br/>"
 			if( readable ) fullResults += "<br/>"
-			fullResults += "]; "
+			fullResults += JSON.stringify(matches[i]) + ","
 		}
-		catch( e ) {
-			arrowed(e.message)
-		}
+		if( readable ) fullResults += "<br/>"
+		fullResults += "]; "
 	}
 	
 	/*

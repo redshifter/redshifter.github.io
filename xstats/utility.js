@@ -126,7 +126,7 @@ function formatMatch(match) {
 
 function generateDailyData() {
 	// burn a seed every time you update this!
-	for( var i = 0; i < 1; i++ ) random()
+	for( var i = 0; i < 2; i++ ) random()
 
 	// draw a bunch of completely random matches
 	var gen = []
