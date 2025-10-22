@@ -10,7 +10,8 @@ function runGameList(thisGame) {
 				? "<a href='bracket.html'>Weekly Bracket</a>"
 				: "Weekly Bracket"
 			) +
-		"<br/>" +
+
+		"<br/>" + 
 		"<br class='finePrint'/>" + // make a separator
 			(thisGame != "x-stats"
 				? "<a href='streak.html'>Winning Streak!</a>"
@@ -32,6 +33,15 @@ function runGameList(thisGame) {
 				: "Royale Mode"
 			) +
 			newGameIndicator("2025-10-19") +
+
+		"<br/>" + 
+		"<br class='finePrint'/>" + // make a separator
+			(thisGame != "contest"
+				? "<a href='streak.html?mode=contest'>Days of the Contest</a>"
+				: "Days of the Contest"
+			) +
+			newGameIndicator("2025-10-21") +
+			
 		"</p>"
 	;
 	document.getElementById("gameList").innerHTML = text
