@@ -6,14 +6,14 @@
 
 <style>
 body {
-	font-size: xx-large;
+	font-size: 44px;
 	text-align:center;
 }
 select {
-	font-size: xx-large;
+	font-size: 44px;
 }
 input {
-	font-size: xx-large;
+	font-size: 44px;
 }
 </style>
 
@@ -29,7 +29,7 @@ input {
 	Challenge again. 
 </div>
 <div id="playArea" style="display:none">
-	<p style="Font-size:44px">TIP GAME</p>
+	<p style="Font-size:72px">TIP GAME</p>
 	<p>Price: <span id="price">$420.69</span></p>
 	<p>Tip: $<input id="tip" type="text" maxLength="5" size="4"></input></p>
 	<p><input type='button' value='Submit' onclick='resulto();' /></p>
@@ -89,34 +89,33 @@ function resulto() {
 					"off by " + off;
 			}
 			else {
-				if( off > 1.00 ) {
-					result = "are you even trying? off by " + off
+				if( off > 0.50 ) {
+					result = "are you even trying right now? off by " + off
 				}
-				else if( off > 0.50 ) {
-					result = "way off. off by " + off
+				else if( off > 0.25 ) {
+					result = "off by more than a quarter. off by " + off
 				}
 				else if( off > 0.10 ) {
 					result = "off by more than a dime. off by " + off
 				}
-				else if ( off > 0.04 ) {
-					result = "close but no cigar. off by " + off
+				else if ( off > 0.05 ) {
+					result = "off by more than a nickel. off by " + off
 				}
 				else if ( off > 0.01 ) {
 					result = "close enough for government work. off by " + off
 					streak = curStreak + 1;
-					if( streak > 1 ) { 
-						result = result + " [" + streak + " tip streak]"
-					}
 				}
 				else {
 					result = "PERFECT!"
 					streak = curStreak + 1;
+				}
+
+				if( streak > 1 ) {
 					if( streak > 1 ) { 
-						result = result + " [" + streak + " tip streak]"
+						result = result + "<br/><b>" + streak + " tip streak</b>"
 					}
 				}
-				
-				if( streak == 0 ) {
+				else if( streak == 0 ) {
 					result += "<br/>"
 						+ "you wrote $" + tip
 						+ "<br/>"
