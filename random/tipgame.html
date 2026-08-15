@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>Tip Game</title>
+<!-- VERSION HISTORY -->
+<!-- v1 (2026-08-15) - why am i doing this -->
+
+<style>
+TD {
+	border:1px #000000 solid;
+	width:64px;
+	height:64px;
+	text-align:center;
+	font-size:20px;
+	background-color: black;
+	color: white;
+}
+</style>
+
+<meta property="og:title" content="Tip Game" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Tip Game" />
+
+</head>
+<body>
+<!-- ru ru ru ru ru i like pantsu -->
+<div id="noScript">
+	Oops, you turned off JavaScript<noscript> (or NoScript is getting in the way)</noscript>.
+	Challenge again. 
+</div>
+<div id="playArea" style="display:none">
+	<p>Price: <span id="price">$420.69</span></p>
+	<p>Tip: $<input id="tip" type="text"></input></p>
+	<p><input type='button' value='Submit' onclick='resulto();' /></p>
+	<p id="result"></p>
+	<p>Difficulty:
+		<select id="maxTip" onchange="changeMaxTip()">
+			<option value="10" default="true">Max $10.00</option>
+			<option value="25">Max $25.00</option>
+			<option value="50">Max $50.00</option>
+			<option value="100">Max $99.99</option>
+		</select>
+	</p>
+</div>
+<script>
+var maxTip = 5;
+var price;
+var realTip;
+var streak = 0;
+
+function changeMaxTip() {
+	maxTip = document.getElementById("maxTip").value - 5;
+	streak = 0;
+	document.getElementById("result").innerHTML = "";
+	nextPlay();
+}
+
+function nextPlay() {
+	price = 5.00 + (Math.random() * maxTip);
+	price = Math.round(price * 100) / 100;
+	realTip = price * 0.2;
+	realTip = Math.round(realTip * 100) / 100;
+	
+	var textPrice = "$" + price;
+	if( textPrice.indexOf(".") == -1 ) textPrice += ".00";
+	if( textPrice.indexOf(".") == (textPrice.length - 2) ) textPrice += "0";
+	
+	document.getElementById("price").innerHTML = textPrice;
+	document.getElementById("tip").value = "";
+}
+
+function resulto() {
+	var tip = document.getElementById("tip").value;
+	var result = "";
+	var curStreak = streak;
+	streak = 0;
+	try {
+		if( isNaN(tip) ) {
+			result = "maybe try a number this time";
+		}
+		else {
+			var off = Math.abs(tip - realTip);
+			off = Math.round(off * 100) / 100;
+			if( false ) {// debug
+				result =
+					"tip was " + realTip + ". " + 
+					"you wrote " + tip + ". " +
+					"off by " + off;
+			}
+			else {
+				if( off > 0.10 ) {
+					result = "way off. off by " + off
+				}
+				else if ( off > 0.04 ) {
+					result = "close but no cigar. off by " + off
+				}
+				else if ( off > 0.01 ) {
+					result = "off by " + off
+					streak = curStreak + 1;
+					if( streak > 1 ) { 
+						result = result + " [" + streak + " tip streak]"
+					}
+				}
+				else {
+					result = "PERFECT!"
+					streak = curStreak + 1;
+					if( streak > 1 ) { 
+						result = result + " [" + streak + " tip streak]"
+					}
+				}
+				
+				if( streak == 0 ) {
+					result += "<br/>"
+						+ "you wrote $" + tip
+						+ "<br/>"
+						+ "correct tip was $" + realTip
+				}
+			}
+		}
+	}
+	catch( e ) {
+		result = "you screwed it up so much that it crashed the code";
+	}
+	document.getElementById("result").innerHTML = result;
+	nextPlay();
+}
+
+document.getElementById("noScript").style.display = "none";
+nextPlay();
+document.getElementById("playArea").style.display = "";
+
+</script>
+
+</body>
+</html>
