@@ -6,14 +6,14 @@
 
 <style>
 body {
-	font-size: 44px;
+	font-size: 32px;
 	text-align:center;
 }
 select {
-	font-size: 44px;
+	font-size: 32px;
 }
 input {
-	font-size: 44px;
+	font-size: 32px;
 }
 </style>
 
@@ -33,11 +33,17 @@ input {
 </div>
 <div id="playArea" style="display:none">
 	<p style="Font-size:72px">TIP GAME</p>
-	<p>Price: <span id="price">$420.69</span></p>
-	<p>Tip: $<input id="tip" type="text" maxLength="5" size="4"></input></p>
-	<p><input type='button' value='Submit' onclick='resulto();' /></p>
-	<p id="result"></p>
-	<p>Difficulty:
+	<p>
+		Price: <span id="price">$420.69</span>
+		<br/>
+		Tip: $<input id="tip" type="text" maxLength="5" size="3"></input>
+		<br/>
+		<input type='button' value='Submit' onclick='resulto();' />
+		<br/>
+		<span id="result"></span>
+		<br/>
+		<br/>
+		Difficulty:
 		<select id="maxTip" onchange="changeMaxTip()">
 			<option value="10" default="true">Max $10.00</option>
 			<option value="25">Max $25.00</option>
