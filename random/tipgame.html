@@ -5,14 +5,15 @@
 <!-- v1 (2026-08-15) - why am i doing this -->
 
 <style>
-TD {
-	border:1px #000000 solid;
-	width:64px;
-	height:64px;
+body {
+	font-size: xx-large;
 	text-align:center;
-	font-size:20px;
-	background-color: black;
-	color: white;
+}
+select {
+	font-size: xx-large;
+}
+input {
+	font-size: xx-large;
 }
 </style>
 
@@ -28,8 +29,9 @@ TD {
 	Challenge again. 
 </div>
 <div id="playArea" style="display:none">
+	<p style="Font-size:44px">TIP GAME</p>
 	<p>Price: <span id="price">$420.69</span></p>
-	<p>Tip: $<input id="tip" type="text"></input></p>
+	<p>Tip: $<input id="tip" type="text" maxLength="5" size="4"></input></p>
 	<p><input type='button' value='Submit' onclick='resulto();' /></p>
 	<p id="result"></p>
 	<p>Difficulty:
@@ -87,14 +89,20 @@ function resulto() {
 					"off by " + off;
 			}
 			else {
-				if( off > 0.10 ) {
+				if( off > 1.00 ) {
+					result = "are you even trying? off by " + off
+				}
+				else if( off > 0.50 ) {
 					result = "way off. off by " + off
+				}
+				else if( off > 0.10 ) {
+					result = "off by more than a dime. off by " + off
 				}
 				else if ( off > 0.04 ) {
 					result = "close but no cigar. off by " + off
 				}
 				else if ( off > 0.01 ) {
-					result = "off by " + off
+					result = "close enough for government work. off by " + off
 					streak = curStreak + 1;
 					if( streak > 1 ) { 
 						result = result + " [" + streak + " tip streak]"
@@ -125,7 +133,8 @@ function resulto() {
 }
 
 document.getElementById("noScript").style.display = "none";
-nextPlay();
+//nextPlay();
+changeMaxTip()
 document.getElementById("playArea").style.display = "";
 
 </script>
